@@ -1,8 +1,21 @@
 .footer {
   display: flex;
   justify-content: space-around;
-  margin: 10px;
+  align-items: center;
   width: 100%;
-  position: absolute;
-  bottom: 10px;
+  height: 60px;
+  position: fixed;
+  bottom: 0px;
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.footer span {
+  align-items: center;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+a {
+  display: inline;
 }

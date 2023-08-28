@@ -1,6 +1,7 @@
 import React from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
+import AppsIcon from '@mui/icons-material/Apps'
 
 function MobileHeader() {
   return (
@@ -8,7 +9,9 @@ function MobileHeader() {
       <div className='container'>
         <h1>MOBILE-HEADER</h1>
         <Link to='../'>
-          <button> Home</button>
+          <div className='collection-icon'>
+            <AppsIcon />
+          </div>
         </Link>
       </div>
     </>

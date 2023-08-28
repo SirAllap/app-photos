@@ -1,0 +1,121 @@
+.photo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: calc(50px - 5px);
+  border-radius: 4px;
+  background-color: #fafafa;
+  width: 620px;
+  height: 700px;
+}
+
+.imagen-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 600px;
+}
+.imagen-section img {
+  margin: auto auto;
+  border-radius: 4px;
+  height: 600px;
+  width: 98%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+.imagen-section img:hover {
+  cursor: zoom-in;
+  transform: scale(1.02);
+}
+
+.action-span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f1f14f;
+  border-radius: 4px;
+}
+.action-span span {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  height: 30px;
+  margin: 10px;
+  transition: 0.3s;
+}
+.action-span span:hover {
+  transform: scale(1.2);
+}
+
+.action-span .fav-non-stuffed:hover {
+  -webkit-animation: fav-non-stuffed 1.5s ease-in-out infinite both;
+  animation: fav-non-stuffed 1.5s ease-in-out infinite both;
+}
+@-webkit-keyframes fav-non-stuffed {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes fav-non-stuffed {
+  from {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  10% {
+    -webkit-transform: scale(0.91);
+    transform: scale(0.91);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  17% {
+    -webkit-transform: scale(0.98);
+    transform: scale(0.98);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  33% {
+    -webkit-transform: scale(0.87);
+    transform: scale(0.87);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  45% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
