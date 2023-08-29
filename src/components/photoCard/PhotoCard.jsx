@@ -7,18 +7,32 @@ import OpenInFullIcon from '@mui/icons-material/OpenInFull'
 import { purple } from '@mui/material/colors'
 import { blue } from '@mui/material/colors'
 
-function PhotoCard({ index, photo }) {
+const PhotoCard = ({ index, photo, id, downloadLink }) => {
+  const openPhoto = () => {}
+  const downloadPhoto = () => {
+    const fileName = index
+    const aTag = document.createElement('a')
+    aTag.href = downloadLink
+      .split('?')[0]
+      .concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)
+    aTag.setAttribute('download', fileName)
+    document.body.appendChild(aTag)
+    aTag.click()
+    aTag.remove()
+  }
+
   return (
     <>
       <div className='photo-card'>
         <section></section>
         <section className='imagen-section'>
-          <img src={photo} alt='' />
+          <img src={photo} alt='' onClick={openPhoto} />
         </section>
 
         <section className='action-span'>
           <span className='download'>
             <DownloadForOfflineIcon
+              onClick={downloadPhoto}
               fontSize='large'
               sx={{ color: '#4966A6' }}
             />

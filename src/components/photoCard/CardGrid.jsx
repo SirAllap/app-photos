@@ -15,7 +15,13 @@ const CardGrid = (initialPics) => {
       <div className='photo-grid'>
         {searchedPicsByUserInput.length === 0
           ? initialPhotos.map((e, i) => (
-              <PhotoCard key={i} index={i} photo={e.uriMedium} id={e.id} />
+              <PhotoCard
+                key={i}
+                index={i}
+                photo={e.uriMedium}
+                id={e.id}
+                downloadLink={e.download}
+              />
             ))
           : searchedPicsByUserInput.map((e, i) => (
               <PhotoCard key={i} index={i} photo={e.uriMedium} id={e.id} />
