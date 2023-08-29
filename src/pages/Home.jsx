@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Header from '../components/headers/Header'
 import Footer from '../components/footer/Footer'
 import CardGrid from '../components/photoCard/CardGrid'

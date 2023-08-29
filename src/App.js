@@ -1,11 +1,17 @@
+import { useEffect } from 'react'
 import './App.css'
 import Routes from './router/Routes'
+import { fetchInitialPics } from './store/slices/searchSlice'
+import { useDispatch } from 'react-redux'
 
-const { REACT_APP_ACCESS_KEY } = process.env
-console.log('Im a test into App.js: ' + REACT_APP_ACCESS_KEY)
 
+const App = () => {
+  const dispatch = useDispatch()
 
-function App() {
+  useEffect(() => {
+    dispatch(fetchInitialPics())
+  }, [dispatch])
+
   return (
     <>
       <Routes />
