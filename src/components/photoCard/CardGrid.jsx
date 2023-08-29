@@ -5,13 +5,21 @@ import { useSelector } from 'react-redux'
 
 const CardGrid = (initialPics) => {
   const initialPhotos = useSelector((state) => state.browsedImages.initialFetch)
+  const searchedPicsByUserInput = useSelector(
+    (state) => state.browsedImages.search.pics
+  )
+  console.log(searchedPicsByUserInput)
 
   return (
     <>
       <div className='photo-grid'>
-        {initialPhotos.map((e, i) => (
-          <PhotoCard key={i} index={i} photo={e.uriMedium} id={e.id} />
-        ))}
+        {searchedPicsByUserInput.length === 0
+          ? initialPhotos.map((e, i) => (
+              <PhotoCard key={i} index={i} photo={e.uriMedium} id={e.id} />
+            ))
+          : searchedPicsByUserInput.map((e, i) => (
+              <PhotoCard key={i} index={i} photo={e.uriMedium} id={e.id} />
+            ))}
       </div>
     </>
   )

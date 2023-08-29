@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import OpenInFullIcon from '@mui/icons-material/OpenInFull'
 // Mui colors
 import { purple } from '@mui/material/colors'
+import { blue } from '@mui/material/colors'
 
 function PhotoCard({ index, photo }) {
   return (
@@ -19,17 +20,14 @@ function PhotoCard({ index, photo }) {
           <span className='download'>
             <DownloadForOfflineIcon
               fontSize='large'
-              style={{ color: purple[300] }}
+              sx={{ color: '#4966A6' }}
             />
           </span>
           <span className='fav-non-stuffed'>
-            <FavoriteBorderIcon
-              fontSize='large'
-              style={{ color: purple[300] }}
-            />
+            <FavoriteBorderIcon fontSize='large' sx={{ color: '#4966A6' }} />
           </span>
           <span className='full-screen'>
-            <OpenInFullIcon fontSize='large' style={{ color: purple[300] }} />
+            <OpenInFullIcon fontSize='large' sx={{ color: '#4966A6' }} />
           </span>
         </section>
       </div>

@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { Link } from '@mui/material'
 
-function footer() {
+const Footer = () => {
   return (
     <>
       <div className='footer'>
@@ -31,4 +31,4 @@ function footer() {
   )
 }
 
-export default footer
+export default Footer

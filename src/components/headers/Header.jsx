@@ -7,6 +7,7 @@ import SearchBar from '../searchBar/SearchBar'
 // Mui colors
 import { purple } from '@mui/material/colors'
 import { Grid } from '@mui/material'
+import Chips from '../chips/Chips'
 
 function header() {
   return (
@@ -19,35 +20,57 @@ function header() {
           justifyContent='space-between'
           alignItems='center'
         >
-          <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
+          <Grid
+            container
+            spacing={0}
+            direction='row'
+            justifyContent='space-between'
+            alignItems='center'
+          >
+            <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
 
-          <Grid item xs={2} sm={2} md={3} xl={3}>
-            <Link className='logoImg' to='../'>
-              <img src={require('../../assets/images/logo.png')} alt='logo' />
-            </Link>
+            <Grid item xs={2} sm={2} md={3} xl={3}>
+              <Link className='logoImg' to='../'>
+                <img src={require('../../assets/images/logo.png')} alt='logo' />
+              </Link>
+            </Grid>
+
+            <Grid item xs={2} sm={2} md={4} xl={6}>
+              <SearchBar />
+            </Grid>
+
+            <Grid item item xs={1} sm={1} md={1} xl={1}>
+              <Link className='buttonTo' to='../collection'>
+                <Button
+                  sx={{
+                    height: '56px',
+                  }}
+                  style={{ color: purple[400] }}
+                  color='secondary'
+                  variant='outlined'
+                  endIcon={<AppsIcon />}
+                >
+                  Collection
+                </Button>
+              </Link>
+            </Grid>
+
+            <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
           </Grid>
-
-          <Grid item xs={2} sm={2} md={4} xl={6}>
-            <SearchBar />
+          <Grid
+            sx={{
+              margin: '10px auto 20px auto',
+              width: '50%',
+            }}
+            container
+            direction='row'
+            justifyContent='space-evenly'
+            // justifyContent='space-between'
+            // justifyContent='space-around'
+            alignItems='center'
+          >
+            <Chips />
           </Grid>
-
-          <Grid item item xs={1} sm={1} md={1} xl={1}>
-            <Link className='buttonTo' to='../collection'>
-              <Button
-                sx={{
-                  height: '56px',
-                }}
-                style={{ color: purple[400] }}
-                color='secondary'
-                variant='outlined'
-                endIcon={<AppsIcon />}
-              >
-                Collection
-              </Button>
-            </Link>
-          </Grid>
-
-          <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
         </Grid>
       </div>
     </>
