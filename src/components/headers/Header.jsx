@@ -2,6 +2,7 @@ import React from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
 import AppsIcon from '@mui/icons-material/Apps'
+import HomeIcon from '@mui/icons-material/Home'
 import Button from '@mui/material/Button'
 import SearchBar from '../searchBar/SearchBar'
 // Mui colors
@@ -9,7 +10,7 @@ import { purple } from '@mui/material/colors'
 import { Grid } from '@mui/material'
 import Chips from '../chips/Chips'
 
-function header() {
+function header({ chips, button }) {
   return (
     <>
       <div className='container'>
@@ -40,37 +41,53 @@ function header() {
             </Grid>
 
             <Grid item item xs={1} sm={1} md={1} xl={1}>
-              <Link className='buttonTo' to='../collection'>
-                <Button
-                  sx={{
-                    height: '56px',
-                  }}
-                  style={{ color: purple[400] }}
-                  color='secondary'
-                  variant='outlined'
-                  endIcon={<AppsIcon />}
-                >
-                  Collection
-                </Button>
-              </Link>
+              {button === 'collection' ? (
+                <Link className='buttonTo' to='../collection'>
+                  <Button
+                    sx={{
+                      height: '56px',
+                    }}
+                    style={{ color: purple[400] }}
+                    color='secondary'
+                    variant='outlined'
+                    endIcon={<AppsIcon />}
+                  >
+                    Collection
+                  </Button>
+                </Link>
+              ) : (
+                <Link className='buttonTo' to='../'>
+                  <Button
+                    sx={{
+                      height: '56px',
+                    }}
+                    style={{ color: purple[400] }}
+                    color='secondary'
+                    variant='outlined'
+                    endIcon={<HomeIcon />}
+                  >
+                    Home
+                  </Button>
+                </Link>
+              )}
             </Grid>
 
             <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
           </Grid>
-          <Grid
-            sx={{
-              margin: '10px auto 20px auto',
-              width: '50%',
-            }}
-            container
-            direction='row'
-            justifyContent='space-evenly'
-            // justifyContent='space-between'
-            // justifyContent='space-around'
-            alignItems='center'
-          >
-            <Chips />
-          </Grid>
+          {chips && (
+            <Grid
+              sx={{
+                margin: '10px auto 20px auto',
+                width: '50%',
+              }}
+              container
+              direction='row'
+              justifyContent='space-evenly'
+              alignItems='center'
+            >
+              <Chips />
+            </Grid>
+          )}
         </Grid>
       </div>
     </>

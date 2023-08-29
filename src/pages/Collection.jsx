@@ -1,13 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import MobileHeader from '../components/headers/MobileHeader'
+import Header from '../components/headers/Header'
 import Footer from '../components/footer/Footer'
 
 function Collection() {
   return (
     <>
-      <MobileHeader />
-      <h1>Hello from COLLECTION</h1>
+      <Header chips={false} button='home' />
       <Footer />
     </>
   )

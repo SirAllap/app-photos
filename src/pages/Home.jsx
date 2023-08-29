@@ -7,7 +7,7 @@ import Intro from '../components/intro/Intro'
 function Home() {
   return (
     <>
-      <Header />
+      <Header chips={true} button='collection' />
       <Intro />
       <CardGrid />
       <Footer />
