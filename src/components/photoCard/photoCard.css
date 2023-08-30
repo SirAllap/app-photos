@@ -47,11 +47,11 @@
   transform: scale(1.2);
 }
 
-.action-span .fav-non-stuffed:hover {
-  -webkit-animation: fav-non-stuffed 1.5s ease-in-out infinite both;
-  animation: fav-non-stuffed 1.5s ease-in-out infinite both;
+.action-span .fav-icon:hover {
+  -webkit-animation: fav-icon 1.5s ease-in-out infinite both;
+  animation: fav-icon 1.5s ease-in-out infinite both;
 }
-@-webkit-keyframes fav-non-stuffed {
+@-webkit-keyframes fav-icon {
   from {
     -webkit-transform: scale(1);
     transform: scale(1);
@@ -85,7 +85,7 @@
     animation-timing-function: ease-out;
   }
 }
-@keyframes fav-non-stuffed {
+@keyframes fav-icon {
   from {
     -webkit-transform: scale(1);
     transform: scale(1);

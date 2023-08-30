@@ -14,20 +14,30 @@ const CardGrid = (initialPics) => {
         {searchedPicsByUserInput.length === 0
           ? initialPhotos.map((e, i) => (
               <PhotoCard
-                key={i}
                 index={i}
-                photo={e.uriMedium}
                 id={e.id}
+                width={e.width}
+                height={e.height}
+                description={e.description}
+                altDescription={e.descriptionFromAlt}
+                photo={e.uriMedium}
+                likes={e.likes}
                 downloadLink={e.download}
+                key={i}
               />
             ))
           : searchedPicsByUserInput.map((e, i) => (
               <PhotoCard
-                key={i}
                 index={i}
-                photo={e.uriMedium}
                 id={e.id}
+                width={e.width}
+                height={e.height}
+                description={e.description}
+                altDescription={e.descriptionFromAlt}
+                photo={e.uriMedium}
+                likes={e.likes}
                 downloadLink={e.download}
+                key={i}
               />
             ))}
       </div>

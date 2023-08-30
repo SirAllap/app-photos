@@ -18,9 +18,11 @@ const SearchBar = () => {
         id='outlined-basic'
         variant='outlined'
         onKeyDown={keypress}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         sx={{
-          width: '95%',
+          width: '82%',
+          m: 4,
         }}
       />
     </>

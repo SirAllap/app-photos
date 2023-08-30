@@ -18,9 +18,10 @@ const Chips = () => {
           height: '36px',
           width: '100px',
           borderRadius: '4px',
+          fontWeight: 'bold',
         }}
-        style={{ color: purple[400] }}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         variant='outlined'
         label='Dog'
         onClick={handleClick}
@@ -31,9 +32,10 @@ const Chips = () => {
           height: '36px',
           width: '100px',
           borderRadius: '4px',
+          fontWeight: 'bold',
         }}
-        style={{ color: purple[400] }}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         variant='outlined'
         label='One Piece'
         onClick={handleClick}
@@ -44,9 +46,10 @@ const Chips = () => {
           height: '36px',
           width: '100px',
           borderRadius: '4px',
+          fontWeight: 'bold',
         }}
-        style={{ color: purple[400] }}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         variant='outlined'
         label='Rock'
         onClick={handleClick}
@@ -57,9 +60,10 @@ const Chips = () => {
           height: '36px',
           width: '100px',
           borderRadius: '4px',
+          fontWeight: 'bold',
         }}
-        style={{ color: purple[400] }}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         variant='outlined'
         label='Ice'
         onClick={handleClick}
@@ -70,9 +74,10 @@ const Chips = () => {
           height: '36px',
           width: '100px',
           borderRadius: '4px',
+          fontWeight: 'bold',
         }}
-        style={{ color: purple[400] }}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         variant='outlined'
         label='Keyboard'
         onClick={handleClick}
@@ -83,9 +88,10 @@ const Chips = () => {
           height: '36px',
           width: '100px',
           borderRadius: '4px',
+          fontWeight: 'bold',
         }}
-        style={{ color: purple[400] }}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         variant='outlined'
         label='React'
         onClick={handleClick}
@@ -96,9 +102,10 @@ const Chips = () => {
           height: '36px',
           width: '100px',
           borderRadius: '4px',
+          fontWeight: 'bold',
         }}
-        style={{ color: purple[400] }}
-        color='secondary'
+        style={{ color: '#4966A6' }}
+        color='primary'
         variant='outlined'
         label='Hate'
         onClick={handleClick}
