@@ -1,15 +1,8 @@
 .container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: fit-content;
-  position: fixed;
   top: 0px;
-  background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  z-index: 1000;
+  z-index: 10;
 }
 .logoImg img {
   width: 250px;

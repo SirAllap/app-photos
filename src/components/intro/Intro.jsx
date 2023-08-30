@@ -5,10 +5,10 @@ function Intro() {
   return (
     <>
       <h2>
-        Embark on a journey of creativity as our app grants you unlimited access
-        to a captivating realm of high-quality, free-to-download stock photos,
-        empowering you to paint your projects with the vibrant hues of
-        imagination.
+        Embrace the beauty of life's fleeting moments, as our app transforms
+        them into cherished memories, etched in pixels and heartbeats. With
+        every click, a new story unfolds, waiting to be written in the book of
+        your life.
       </h2>
     </>
   )

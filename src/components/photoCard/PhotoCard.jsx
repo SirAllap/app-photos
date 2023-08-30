@@ -9,13 +9,14 @@ import { blue } from '@mui/material/colors'
 
 const PhotoCard = ({ index, photo, id, downloadLink }) => {
   const openPhoto = () => {}
+
   const downloadPhoto = () => {
-    const fileName = index
+    // const fileName = index
     const aTag = document.createElement('a')
     aTag.href = downloadLink
       .split('?')[0]
       .concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)
-    aTag.setAttribute('download', fileName)
+    // aTag.setAttribute('download', 'img')
     document.body.appendChild(aTag)
     aTag.click()
     aTag.remove()

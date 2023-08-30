@@ -12,6 +12,10 @@ const App = () => {
     dispatch(fetchInitialPics())
   }, [dispatch])
 
+
+
+
+
   return (
     <>
       <Routes />

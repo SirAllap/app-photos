@@ -8,8 +8,6 @@ const CardGrid = (initialPics) => {
   const searchedPicsByUserInput = useSelector(
     (state) => state.browsedImages.search.pics
   )
-  console.log(searchedPicsByUserInput)
-
   return (
     <>
       <div className='photo-grid'>
@@ -24,7 +22,13 @@ const CardGrid = (initialPics) => {
               />
             ))
           : searchedPicsByUserInput.map((e, i) => (
-              <PhotoCard key={i} index={i} photo={e.uriMedium} id={e.id} />
+              <PhotoCard
+                key={i}
+                index={i}
+                photo={e.uriMedium}
+                id={e.id}
+                downloadLink={e.download}
+              />
             ))}
       </div>
     </>

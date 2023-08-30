@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
 import AppsIcon from '@mui/icons-material/Apps'
@@ -7,13 +7,18 @@ import Button from '@mui/material/Button'
 import SearchBar from '../searchBar/SearchBar'
 // Mui colors
 import { purple } from '@mui/material/colors'
-import { Grid } from '@mui/material'
+import { AppBar, Grid } from '@mui/material'
 import Chips from '../chips/Chips'
+import SearchIcon from '@mui/icons-material/Search'
 
-function header({ chips, button }) {
+const Header = ({ chips, button, mobile }) => {
   return (
     <>
-      <div className='container'>
+      <AppBar
+        position='sticky'
+        style={{ background: 'rgba(255, 255, 255, 0.62)', boxShadow: 'none' }}
+        className='container'
+      >
         <Grid
           container
           spacing={0}
@@ -28,19 +33,26 @@ function header({ chips, button }) {
             justifyContent='space-between'
             alignItems='center'
           >
-            <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
+            <Grid item xs={0} sm={0} md={0} xl={1}></Grid>
 
-            <Grid item xs={2} sm={2} md={3} xl={3}>
+            {/* LOGO */}
+            <Grid item xs={0} sm={0} md={3} xl={3}>
               <Link className='logoImg' to='../'>
                 <img src={require('../../assets/images/logo.png')} alt='logo' />
               </Link>
             </Grid>
 
-            <Grid item xs={2} sm={2} md={4} xl={6}>
-              <SearchBar />
-            </Grid>
+            {/* SEARCH BAR */}
+            {mobile ? (
+              <SearchIcon style={{ color: purple[400] }} color='secondary' />
+            ) : (
+              <Grid item xs={0} sm={0} md={4} xl={6}>
+                <SearchBar />
+              </Grid>
+            )}
 
-            <Grid item item xs={1} sm={1} md={1} xl={1}>
+            {/* BUTTON */}
+            <Grid item xs={1} sm={1} md={1} xl={1}>
               {button === 'collection' ? (
                 <Link className='buttonTo' to='../collection'>
                   <Button
@@ -74,6 +86,7 @@ function header({ chips, button }) {
 
             <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
           </Grid>
+          {/* CHIPS */}
           {chips && (
             <Grid
               sx={{
@@ -89,9 +102,9 @@ function header({ chips, button }) {
             </Grid>
           )}
         </Grid>
-      </div>
+      </AppBar>
     </>
   )
 }
 
-export default header
+export default Header
