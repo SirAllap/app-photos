@@ -16,6 +16,7 @@ const CardGrid = (initialPics) => {
               <PhotoCard
                 index={i}
                 id={e.id}
+                date={e.date}
                 width={e.width}
                 height={e.height}
                 description={e.description}
@@ -30,6 +31,7 @@ const CardGrid = (initialPics) => {
               <PhotoCard
                 index={i}
                 id={e.id}
+                date={e.date}
                 width={e.width}
                 height={e.height}
                 description={e.description}

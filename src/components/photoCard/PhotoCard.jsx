@@ -14,6 +14,7 @@ import {
 const PhotoCard = ({
   index,
   id,
+  date,
   width,
   height,
   description,
@@ -37,9 +38,11 @@ const PhotoCard = ({
   }
 
   const handleSave2Collection = () => {
+    const d = date.split('T')[0]
     const imgData = {
       index: index,
       id: id,
+      date: d,
       width: width,
       height: height,
       description: description,
@@ -49,8 +52,8 @@ const PhotoCard = ({
       downloadLink: downloadLink,
     }
     dispatch(saveThisPhotoToCollection(imgData))
+    // dispatch(fetch1Pic())
     dispatch(removeThisPhotoFromHome(id))
-    dispatch(fetch1Pic())
   }
 
   return (

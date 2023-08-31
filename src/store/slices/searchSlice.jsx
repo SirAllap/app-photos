@@ -46,16 +46,16 @@ export const fetchInitialPics = createAsyncThunk(
       const fetchDataFromPics = initialFetch.map((e, i) => {
         return {
           id: e.id,
+          index: i,
+          date: e.created_at,
           width: e.width,
           height: e.height,
           description: e.description,
           descriptionFromAlt: e.alt_description,
-          uriSmall: e.urls.small,
           uriMedium: e.urls.regular,
           uriBig: e.urls.full,
           likes: e.likes,
           download: e.links.download,
-          index: i,
         }
       })
       return fetchDataFromPics
@@ -70,8 +70,7 @@ export const fetch1Pic = createAsyncThunk(
   'browsedImages/fetch1Pic',
   async () => {
     try {
-      let initialFetch1 = []
-      initialFetch1 = await axios(
+      let initialFetch1 = await axios(
         baseURL +
           urlRandomParameterToGet1.urlParam +
           urlRandomParameterToGet1.numRandomPics +
@@ -79,18 +78,20 @@ export const fetch1Pic = createAsyncThunk(
       ).then((res) => {
         return res.data
       })
-      const fetchDataFromThePic = {
-        id: initialFetch1.id,
-        width: initialFetch1.width,
-        height: initialFetch1.height,
-        description: initialFetch1.description,
-        descriptionFromAlt: initialFetch1.alt_description,
-        uriSmall: initialFetch1.urls.small,
-        uriMedium: initialFetch1.urls.regular,
-        uriBig: initialFetch1.urls.full,
-        likes: initialFetch1.likes,
-        download: initialFetch1.links.download,
-      }
+      const fetchDataFromThePic = initialFetch1.map((e, i) => {
+        return {
+          index: i,
+          id: e.id,
+          date: e.created_at,
+          width: e.width,
+          height: e.height,
+          description: e.description,
+          descriptionFromAlt: e.alt_description,
+          uriMedium: e.urls.regular,
+          likes: e.likes,
+          download: e.links.download,
+        }
+      })
       return fetchDataFromThePic
     } catch (error) {
       console.log('Log ERROR: ' + error)
@@ -113,6 +114,7 @@ export const findPicsByUserInput = createAsyncThunk(
         return {
           index: i,
           id: e.id,
+          date: e.created_at,
           width: e.width,
           height: e.height,
           description: e.description,
@@ -142,7 +144,7 @@ export const searchSlice = createSlice({
   initialState,
   reducers: {
     removeLikedPic: (state, action) => {
-      if (state.initialFetch.some((e) => e === action.payload.dataFromImg)) {
+      if (state.initialFetch.some((e) => e.id === action.payload.dataFromImg)) {
         const result = state.initialFetch.filter(
           (e) => e.id !== action.payload.dataFromImg
         )
@@ -186,7 +188,6 @@ export const searchSlice = createSlice({
       })
       .addCase(fetch1Pic.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        console.log('here')
         console.log(action.payload)
         state.initialFetch.push(action.payload)
       })

@@ -20,6 +20,7 @@ const CollectionCardGrid = (initialPics) => {
             <CollectionPhotoCard
               index={i}
               id={e.id}
+              date={e.date}
               width={e.width}
               height={e.height}
               description={e.description}
