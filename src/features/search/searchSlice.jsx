@@ -15,7 +15,7 @@ const baseURL = `https://api.unsplash.com/`
 
 const urlRandomParameter = {
   urlParam: `photos/random?count=`,
-  numRandomPics: 16,
+  numRandomPics: 30,
 }
 
 const urlRandomParameterToGet1 = {
@@ -200,3 +200,8 @@ export const searchSlice = createSlice({
 })
 
 export default searchSlice.reducer
+
+export const initialPhotos = (state) => state.browsedImages.initialFetch
+export const searchedPicsByUserInput = (state) =>
+  state.browsedImages.search.pics
+export const selectStatus = (state) => state.browsedImages.status

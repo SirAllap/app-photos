@@ -20,6 +20,7 @@ import { green, pink } from '@mui/material/colors'
 import DateRangeIcon from '@mui/icons-material/DateRange'
 import AspectRatioIcon from '@mui/icons-material/AspectRatio'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import Swal from 'sweetalert2'
 
 const CollectionPhotoCard = ({
   index,
@@ -53,7 +54,24 @@ const CollectionPhotoCard = ({
   }
 
   const handleToRemoveFromCollection = () => {
-    dispatch(removeThisPhotoFromCollection(id))
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(removeThisPhotoFromCollection(id))
+        Swal.fire(
+          'Deleted!',
+          'The photo has been deleted from collection.',
+          'success'
+        )
+      }
+    })
   }
 
   const modalStyle = {
@@ -114,7 +132,7 @@ const CollectionPhotoCard = ({
               onClick={handleToRemoveFromCollection}
               className='heart-icon-liked'
               fontSize='large'
-              sx={{ color: '#B65F9F' }}
+              sx={{ color: '#B65F9F', '&:hover': { color: '#4966A6' } }}
             />
           </span>
           <span className='full-screen'>

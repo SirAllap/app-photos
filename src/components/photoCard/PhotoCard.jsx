@@ -9,7 +9,8 @@ import {
   fetch1Pic,
   removeThisPhotoFromHome,
 } from '../../features/search/searchSlice'
-import { Alert, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
+import Swal from 'sweetalert2'
 
 const PhotoCard = ({
   index,
@@ -51,6 +52,16 @@ const PhotoCard = ({
       likes: likes,
       downloadLink: downloadLink,
     }
+    Swal.fire({
+      position: 'bottom',
+      icon: 'success',
+      text: 'The photo has been successfully added to the collection',
+      width: 'auto',
+      heightAuto: true,
+      showConfirmButton: false,
+      timer: 1500,
+      timerProgressBar: 1500,
+    })
     setTimeout(() => {
       dispatch(saveThisPhotoToCollection(imgData))
       dispatch(fetch1Pic())
@@ -65,11 +76,7 @@ const PhotoCard = ({
         <section className='imagen-section'>
           <img src={photo} alt='' />
         </section>
-        <section className='success-alert-msg'>
-          <Alert variant='outlined' severity='success'>
-            This is a success alert — check it out!
-          </Alert>
-        </section>
+
         <section className='action-span'>
           <span className='download'>
             <DownloadForOfflineIcon

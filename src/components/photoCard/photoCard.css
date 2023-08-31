@@ -7,6 +7,7 @@
   background-color: #fafafa;
   width: 620px;
   height: 700px;
+  transition: all 1s;
 }
 
 .imagen-section {
@@ -118,8 +119,4 @@
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
-}
-
-.success-alert-msg {
-  position: float;
 }

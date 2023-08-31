@@ -13,7 +13,6 @@ function Home() {
   return (
     <>
       <Header chips={true} button='collection' mobile={handleResize()} />
-      <Intro />
       <CardGrid />
       <Footer />
     </>

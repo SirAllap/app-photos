@@ -5,3 +5,6 @@
   align-items: center;
   margin: 20px 10px 90px 10px;
 }
+.alert-container {
+  z-index: 10;
+}
