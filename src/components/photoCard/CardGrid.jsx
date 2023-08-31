@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 
 const CardGrid = (initialPics) => {
   const initialPhotos = useSelector((state) => state.browsedImages.initialFetch)
+
   const searchedPicsByUserInput = useSelector(
     (state) => state.browsedImages.search.pics
   )

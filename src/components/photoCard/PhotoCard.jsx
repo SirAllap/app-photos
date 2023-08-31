@@ -4,12 +4,12 @@ import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import OpenInFullIcon from '@mui/icons-material/OpenInFull'
 import { useDispatch } from 'react-redux'
-import { saveThisPhotoToCollection } from '../../store/slices/favouritesSlice'
+import { saveThisPhotoToCollection } from '../../features/favourites/favouritesSlice'
 import {
   fetch1Pic,
   removeThisPhotoFromHome,
-  removeThisPhotoFromTheSearchHome,
-} from '../../store/slices/searchSlice'
+} from '../../features/search/searchSlice'
+import { Alert, Stack } from '@mui/material'
 
 const PhotoCard = ({
   index,
@@ -51,19 +51,25 @@ const PhotoCard = ({
       likes: likes,
       downloadLink: downloadLink,
     }
-    dispatch(saveThisPhotoToCollection(imgData))
-    // dispatch(fetch1Pic())
-    dispatch(removeThisPhotoFromHome(id))
+    setTimeout(() => {
+      dispatch(saveThisPhotoToCollection(imgData))
+      dispatch(fetch1Pic())
+      dispatch(removeThisPhotoFromHome(id))
+    }, 1500)
   }
 
   return (
     <>
-      <div className='photo-card'>
+      <Stack className='photo-card'>
         <section></section>
         <section className='imagen-section'>
           <img src={photo} alt='' />
         </section>
-
+        <section className='success-alert-msg'>
+          <Alert variant='outlined' severity='success'>
+            This is a success alert — check it out!
+          </Alert>
+        </section>
         <section className='action-span'>
           <span className='download'>
             <DownloadForOfflineIcon
@@ -80,11 +86,11 @@ const PhotoCard = ({
               sx={{ color: '#4966A6' }}
             />
           </span>
-          <span className='full-screen'>
+          {/* <span className='full-screen'>
             <OpenInFullIcon fontSize='large' sx={{ color: '#4966A6' }} />
-          </span>
+          </span> */}
         </section>
-      </div>
+      </Stack>
     </>
   )
 }

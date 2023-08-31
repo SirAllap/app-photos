@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { findPicsByUserInput } from '../../store/slices/searchSlice'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { findPicsByUserInput } from '../../features/search/searchSlice'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
@@ -10,11 +10,21 @@ const SearchBar = () => {
       dispatch(findPicsByUserInput(e.target.value))
     }
   }
+  const [userInput, setUserInput] = useState(' ')
+
+  const searchedInput = useSelector((state) => state.browsedImages.search.input)
+  useEffect(() => {
+    if (searchedInput.length !== 0) {
+      return setUserInput(searchedInput)
+    } else {
+      return setUserInput('e.g. Black cat')
+    }
+  }, [searchedInput])
 
   return (
     <>
       <TextField
-        label='e.g. Black cat'
+        label={userInput}
         id='outlined-basic'
         variant='outlined'
         onKeyDown={keypress}

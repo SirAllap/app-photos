@@ -92,7 +92,7 @@ export const fetch1Pic = createAsyncThunk(
           download: e.links.download,
         }
       })
-      return fetchDataFromThePic
+      return fetchDataFromThePic[0]
     } catch (error) {
       console.log('Log ERROR: ' + error)
       throw new Error(`We could not fetch 1 photo ${error.message}`)
@@ -122,6 +122,7 @@ export const findPicsByUserInput = createAsyncThunk(
           uriMedium: e.urls.regular,
           likes: e.likes,
           download: e.links.download,
+          input: userInput,
         }
       })
       return fetchDataFromSearchedPic
@@ -176,6 +177,7 @@ export const searchSlice = createSlice({
       })
       .addCase(findPicsByUserInput.fulfilled, (state, action) => {
         state.status = 'succeeded'
+        state.search.input = action.payload[0].input
         state.search.pics = action.payload
       })
       .addCase(findPicsByUserInput.rejected, (state, action) => {
@@ -188,7 +190,6 @@ export const searchSlice = createSlice({
       })
       .addCase(fetch1Pic.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        console.log(action.payload)
         state.initialFetch.push(action.payload)
       })
       .addCase(fetch1Pic.rejected, (state, action) => {

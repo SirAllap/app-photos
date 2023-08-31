@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import './App.css'
 import Routes from './router/Routes'
-import { fetchInitialPics } from './store/slices/searchSlice'
+import { fetchInitialPics } from './features/search/searchSlice'
 import { useDispatch } from 'react-redux'
 
 

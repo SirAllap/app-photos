@@ -4,7 +4,7 @@ import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import OpenInFullIcon from '@mui/icons-material/OpenInFull'
 import { useDispatch } from 'react-redux'
-import { removeThisPhotoFromCollection } from '../../store/slices/favouritesSlice'
+import { removeThisPhotoFromCollection } from '../../features/favourites/favouritesSlice'
 import {
   Avatar,
   Box,
@@ -38,7 +38,6 @@ const CollectionPhotoCard = ({
 
   const handleClick = () => {
     setEditDescription(description)
-    let disable = false
   }
 
   const downloadPhoto = () => {
@@ -57,17 +56,19 @@ const CollectionPhotoCard = ({
     dispatch(removeThisPhotoFromCollection(id))
   }
 
-  const style = {
+  const modalStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '75%',
+    width: 'fit-content',
+    maxWidth: '80vw',
     height: 'fit-content',
+    maxHeight: '80vh',
     borderRadius: 1,
-    bgcolor: 'rgba(255, 255, 255, 0.92)',
+    bgcolor: 'rgba(255, 255, 255, 0.85)',
     boxShadow: 24,
-    p: 4,
+    p: 6,
   }
 
   const likeAvatar = {
@@ -96,7 +97,6 @@ const CollectionPhotoCard = ({
   return (
     <>
       <div className='photo-card'>
-        <section></section>
         <section className='imagen-section'>
           <img src={photo} alt='' onClick={handleOpen} />
         </section>
@@ -123,113 +123,93 @@ const CollectionPhotoCard = ({
               fontSize='large'
               sx={{ color: '#4966A6' }}
             />
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby='modal-modal-title'
-              aria-describedby='modal-modal-description'
-            >
-              <Box sx={style}>
-                <Grid
-                  container
-                  direction='column'
-                  justifyContent='space-evenly'
-                  alignItems='center'
-                >
-                  <Grid item>
-                    <section className='modal-imagen-section'>
-                      <img src={photo} alt='' />
-                    </section>
-                  </Grid>
-                  <Grid
-                    container
-                    direction='row'
-                    justifyContent='start'
-                    alignItems='center'
-                  >
-                    {
-                      <Grid item xs={12} sm={4} md={4} xl={4}>
-                        <ListItem>
-                          <ListItemAvatar>
-                            <Avatar variant='rounded' sx={likeAvatar}>
-                              <ThumbUpRoundedIcon />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText primary={likes} />
-                        </ListItem>
-                      </Grid>
-                    }
-                    {
-                      <Grid item xs={12} sm={8} md={8} xl={8}>
-                        <ListItem>
-                          <ListItemAvatar>
-                            <Avatar variant='rounded' sx={editAvatar}>
-                              <EditRoundedIcon onClick={handleClick} />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <TextField
-                            onKeyDown={keypress}
-                            id='outlined-basic'
-                            label={editDescription}
-                            variant='outlined'
-                            on
-                          />
-                        </ListItem>
-                        <ListItemText secondary={editDescription} />
-                      </Grid>
-                    }
-                  </Grid>
-                  <Grid
-                    container
-                    direction='row'
-                    justifyContent='start'
-                    alignItems='center'
-                  >
-                    {
-                      <Grid item>
-                        <ListItem>
-                          <ListItemAvatar>
-                            <Avatar variant='rounded' sx={dateAvatar}>
-                              <DateRangeIcon />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText primary={date} />
-                        </ListItem>
-                      </Grid>
-                    }
-                  </Grid>
-                  <Grid
-                    container
-                    direction='row'
-                    justifyContent='start'
-                    alignItems='center'
-                  >
-                    {
-                      <Grid item>
-                        <ListItem>
-                          <ListItemAvatar>
-                            <Avatar variant='rounded' sx={dateAvatar}>
-                              <AspectRatioIcon />
-                            </Avatar>
-                          </ListItemAvatar>
-                          <ListItemText primary={width + ' x ' + height} />
-                        </ListItem>
-                      </Grid>
-                    }
-                  </Grid>
-                </Grid>
-                {/* <Typography
-                  id='modal-modal-description'
-                  sx={{ width: 170, mt: 2 }}
-                >
-                  Duis mollis, est non commodo luctus, nisi erat porttitor
-                  ligula.
-                </Typography> */}
-              </Box>
-            </Modal>
           </span>
         </section>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={modalStyle}>
+          <Grid
+            container
+            direction='row'
+            justifyContent='space-evenly'
+            alignItems='center'
+          >
+            <Grid item>
+              <section className='modal-imagen-section'>
+                <img src={photo} alt='' />
+              </section>
+              {
+                <Grid item>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar variant='rounded' sx={editAvatar}>
+                        <EditRoundedIcon onClick={handleClick} />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <TextField
+                      fullWidth
+                      onKeyDown={keypress}
+                      id='outlined-basic'
+                      label={editDescription}
+                      variant='outlined'
+                    />
+                  </ListItem>
+                  <ListItemText secondary={editDescription} />
+                </Grid>
+              }
+            </Grid>
+            <Grid
+              item
+              container
+              justifyContent='space-evenly'
+              alignItems='center'
+              direction='row'
+            >
+              {
+                <Grid item>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar variant='rounded' sx={likeAvatar}>
+                        <ThumbUpRoundedIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={likes} />
+                  </ListItem>
+                </Grid>
+              }
+              {
+                <Grid item>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar variant='rounded' sx={dateAvatar}>
+                        <DateRangeIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={date} />
+                  </ListItem>
+                </Grid>
+              }
+              {
+                <Grid item>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar variant='rounded' sx={dateAvatar}>
+                        <AspectRatioIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={width + ' x ' + height} />
+                  </ListItem>
+                </Grid>
+              }
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
     </>
   )
 }
