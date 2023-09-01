@@ -1,6 +1,5 @@
 .photo-card {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   margin-top: calc(50px - 5px);
   border-radius: 4px;
@@ -28,13 +27,11 @@
   transform: scale(1.02);
 }
 
-.modal-imagen-section img {
-  width: auto;
-  height: auto;
-  transform: translate(-0%, -0%);
+.modal-imagen-collection-section img {
+  padding: auto;
   margin: auto;
   border-radius: 4px;
-  max-height: 75vh;
+  max-height: 70vh;
   max-width: 100%;
   object-fit: contain;
   transition: 0.3s;

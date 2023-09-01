@@ -9,7 +9,7 @@ import {
   fetch1Pic,
   removeThisPhotoFromHome,
 } from '../../features/search/searchSlice'
-import { Stack } from '@mui/material'
+import { Box, Grid, Modal, Stack } from '@mui/material'
 import Swal from 'sweetalert2'
 
 const PhotoCard = ({
@@ -69,14 +69,32 @@ const PhotoCard = ({
     }, 1500)
   }
 
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '70%',
+    height: '80%',
+    maxWidth: '90%',
+    maxHeight: '90%',
+    borderRadius: 1,
+    bgcolor: 'rgba(255, 255, 255, 0.85)',
+    boxShadow: 24,
+    p: 6,
+  }
+
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   return (
     <>
       <Stack className='photo-card'>
         <section></section>
         <section className='imagen-section'>
-          <img src={photo} alt='' />
+          <img src={photo} alt='' onClick={handleOpen} />
         </section>
-
         <section className='action-span'>
           <span className='download'>
             <DownloadForOfflineIcon
@@ -93,11 +111,36 @@ const PhotoCard = ({
               sx={{ color: '#4966A6' }}
             />
           </span>
-          {/* <span className='full-screen'>
-            <OpenInFullIcon fontSize='large' sx={{ color: '#4966A6' }} />
-          </span> */}
+          <span className='full-screen'>
+            <OpenInFullIcon
+              fontSize='large'
+              sx={{ color: '#4966A6' }}
+              onClick={handleOpen}
+            />
+          </span>
         </section>
       </Stack>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
+      >
+        <Box sx={modalStyle}>
+          <Grid
+            container
+            direction='row'
+            justifyContent='space-evenly'
+            alignItems='center'
+          >
+            <Grid item>
+              <section className='modal-imagen-section'>
+                <img src={photo} alt='' />
+              </section>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
     </>
   )
 }

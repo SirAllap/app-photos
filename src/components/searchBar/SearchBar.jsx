@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { findPicsByUserInput } from '../../features/search/searchSlice'
 
-const SearchBar = () => {
+const SearchBar = ({ isMobile }) => {
   const dispatch = useDispatch()
   const keypress = (e) => {
     if (e.keyCode === 13) {
@@ -24,6 +24,7 @@ const SearchBar = () => {
   return (
     <>
       <TextField
+        size={isMobile ? 'small' : 'regular'}
         label={userInput}
         id='outlined-basic'
         variant='outlined'
@@ -31,8 +32,11 @@ const SearchBar = () => {
         style={{ color: '#4966A6' }}
         color='primary'
         sx={{
-          width: '82%',
-          m: 4,
+          width: '80%',
+          marginLeft: 5,
+          marginRight: 0,
+          marginTop: 1,
+          marginBottom: 1,
         }}
       />
     </>

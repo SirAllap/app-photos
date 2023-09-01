@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 import './collectionPhotoCard.css'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import OpenInFullIcon from '@mui/icons-material/OpenInFull'
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken'
 import { useDispatch } from 'react-redux'
 import { removeThisPhotoFromCollection } from '../../features/favourites/favouritesSlice'
 import {
   Avatar,
   Box,
   Grid,
+  Input,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Modal,
-  TextField,
+  Stack,
 } from '@mui/material'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import { green, pink } from '@mui/material/colors'
@@ -21,6 +22,8 @@ import DateRangeIcon from '@mui/icons-material/DateRange'
 import AspectRatioIcon from '@mui/icons-material/AspectRatio'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import Swal from 'sweetalert2'
+import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
+import CloseIcon from '@mui/icons-material/Close'
 
 const CollectionPhotoCard = ({
   index,
@@ -36,10 +39,7 @@ const CollectionPhotoCard = ({
 }) => {
   const dispatch = useDispatch()
   const [editDescription, setEditDescription] = useState('')
-
-  const handleClick = () => {
-    setEditDescription(description)
-  }
+  const [inputState, setInputState] = useState(true)
 
   const downloadPhoto = () => {
     const fileName = description
@@ -74,21 +74,15 @@ const CollectionPhotoCard = ({
     })
   }
 
-  const modalStyle = {
+  const closeAvatar = {
+    cursor: 'pointer',
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 'fit-content',
-    maxWidth: '80vw',
-    height: 'fit-content',
-    maxHeight: '80vh',
-    borderRadius: 1,
-    bgcolor: 'rgba(255, 255, 255, 0.85)',
-    boxShadow: 24,
-    p: 6,
+    top: '5px',
+    right: '5px',
+    bgcolor: 'rgba(160, 160, 160, 0.50)',
+    color: 'rgba(64, 64, 64)',
+    fontWeight: 'bold',
   }
-
   const likeAvatar = {
     bgcolor: pink[500],
   }
@@ -96,6 +90,7 @@ const CollectionPhotoCard = ({
     bgcolor: green[500],
   }
   const editAvatar = {
+    cursor: 'pointer',
     bgcolor: '#4966A6',
   }
   const onEditAvatar = {
@@ -106,7 +101,27 @@ const CollectionPhotoCard = ({
   const keypress = (e) => {
     if (e.keyCode === 13) {
       setEditDescription(e.target.value)
+      e.target.value = ''
     }
+  }
+
+  const handleClick = (e) => {
+    setInputState(!inputState ? true : false)
+  }
+
+  const collectionModalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: '75%',
+    height: 'fit-content',
+    maxWidth: '95%',
+    maxHeight: '95%',
+    borderRadius: 1,
+    bgcolor: 'rgba(255, 255, 255, 0.85)',
+    boxShadow: 24,
+    p: 3,
   }
 
   const [open, setOpen] = React.useState(false)
@@ -114,11 +129,36 @@ const CollectionPhotoCard = ({
   const handleClose = () => setOpen(false)
   return (
     <>
-      <div className='photo-card'>
+      <Stack className='photo-card'>
+        <section>
+          <ListItemText
+            sx={{
+              textAlign: 'center',
+              p: 1,
+            }}
+            disableTypography
+            secondary={width + ' x ' + height}
+          />
+        </section>
         <section className='imagen-section'>
           <img src={photo} alt='' onClick={handleOpen} />
         </section>
-
+        <section>
+          <ListItemText
+            sx={{
+              textAlign: 'center',
+              p: 1,
+            }}
+            disableTypography
+            secondary={
+              !description
+                ? altDescription
+                : !altDescription
+                ? 'No description yet'
+                : description
+            }
+          />
+        </section>
         <section className='action-span'>
           <span className='download'>
             <DownloadForOfflineIcon
@@ -128,7 +168,7 @@ const CollectionPhotoCard = ({
             />
           </span>
           <span className='fav-icon'>
-            <FavoriteIcon
+            <HeartBrokenIcon
               onClick={handleToRemoveFromCollection}
               className='heart-icon-liked'
               fontSize='large'
@@ -136,60 +176,76 @@ const CollectionPhotoCard = ({
             />
           </span>
           <span className='full-screen'>
-            <OpenInFullIcon
+            <InfoRoundedIcon
               onClick={handleOpen}
               fontSize='large'
               sx={{ color: '#4966A6' }}
             />
           </span>
         </section>
-      </div>
+      </Stack>
+      {/* modal */}
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <Box sx={modalStyle}>
+        <Box sx={collectionModalStyle}>
           <Grid
             container
-            direction='row'
+            direction='column'
             justifyContent='space-evenly'
             alignItems='center'
           >
+            {/* closeBtn */}
+            <Avatar variant='rounded' sx={closeAvatar} onClick={handleClose}>
+              <CloseIcon />
+            </Avatar>
+
+            {/* img+edit */}
             <Grid item>
-              <section className='modal-imagen-section'>
+              <section className='modal-imagen-collection-section'>
                 <img src={photo} alt='' />
               </section>
               {
                 <Grid item>
                   <ListItem>
                     <ListItemAvatar>
-                      <Avatar variant='rounded' sx={editAvatar}>
+                      <Avatar
+                        variant='rounded'
+                        sx={inputState ? editAvatar : onEditAvatar}
+                      >
                         <EditRoundedIcon onClick={handleClick} />
                       </Avatar>
                     </ListItemAvatar>
-                    <TextField
+
+                    <Input
+                      placeholder='Edit description'
                       fullWidth
                       onKeyDown={keypress}
-                      id='outlined-basic'
-                      label={editDescription}
-                      variant='outlined'
+                      disabled={inputState}
                     />
                   </ListItem>
-                  <ListItemText secondary={editDescription} />
+                  <ListItemText
+                    primary={
+                      editDescription
+                        ? `Your custom description: ${editDescription}`
+                        : editDescription
+                    }
+                    secondary={
+                      !description
+                        ? 'This image do not have a description yet'
+                        : `Description: ${description}`
+                    }
+                  />
                 </Grid>
               }
             </Grid>
-            <Grid
-              item
-              container
-              justifyContent='space-evenly'
-              alignItems='center'
-              direction='row'
-            >
+            {/* likes+date+size */}
+            <Grid container direction='row' justifyContent='center'>
               {
-                <Grid item>
+                <Grid item xs={12} sm={4} md={4} xl={4}>
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar variant='rounded' sx={likeAvatar}>
@@ -201,7 +257,7 @@ const CollectionPhotoCard = ({
                 </Grid>
               }
               {
-                <Grid item>
+                <Grid item xs={12} sm={4} md={4} xl={4}>
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar variant='rounded' sx={dateAvatar}>
@@ -213,7 +269,7 @@ const CollectionPhotoCard = ({
                 </Grid>
               }
               {
-                <Grid item>
+                <Grid item xs={12} sm={4} md={4} xl={4}>
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar variant='rounded' sx={dateAvatar}>

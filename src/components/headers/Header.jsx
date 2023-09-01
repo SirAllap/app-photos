@@ -1,14 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './header.css'
 import { Link } from 'react-router-dom'
 import AppsIcon from '@mui/icons-material/Apps'
 import HomeIcon from '@mui/icons-material/Home'
 import Button from '@mui/material/Button'
 import SearchBar from '../searchBar/SearchBar'
-import { AppBar, Grid } from '@mui/material'
+import { AppBar, Badge, Grid } from '@mui/material'
 import Chips from '../chips/Chips'
+import { useSelector } from 'react-redux'
+import { savedPhotos } from '../../features/favourites/favouritesSlice'
 
 const Header = ({ chips, button, mobile }) => {
+  const [isMobile, setIsMobile] = useState()
+  const favPics = useSelector(savedPhotos)
+
+  const numPicsOnColl = () => {
+    return favPics.length
+  }
+  useEffect(() => {
+    window.innerWidth < 900 ? setIsMobile(true) : setIsMobile(false)
+  }, [])
+
   return (
     <>
       <AppBar
@@ -31,59 +43,94 @@ const Header = ({ chips, button, mobile }) => {
               <img src={require('../../assets/images/logo.png')} alt='logo' />
             </Link>
           </Grid>
-          <Grid item xs={2} sm={0} md={3} xl={3}>
-            {button === 'collection' ? (
-              <Link className='buttonTo' to='../collection'>
-                <AppsIcon sx={{ fontSize: 40 }} style={{ color: '#4966A6' }} />
-              </Link>
-            ) : (
-              <Link className='buttonTo' to='../'>
-                <HomeIcon sx={{ fontSize: 40 }} style={{ color: '#4966A6' }} />
-              </Link>
-            )}
-          </Grid>
+
+          {/* BUTTON-MOBILE */}
+          {isMobile && (
+            <Grid item xs={2} sm={0} md={3} xl={3}>
+              {button === 'collection' ? (
+                <Link className='buttonTo' to='../collection'>
+                  {!favPics ? (
+                    <AppsIcon
+                      sx={{ fontSize: 40 }}
+                      style={{ color: '#4966A6' }}
+                    />
+                  ) : (
+                    <Badge badgeContent={numPicsOnColl()} color='primary'>
+                      <AppsIcon
+                        sx={{ fontSize: 40 }}
+                        style={{ color: '#4966A6' }}
+                      />
+                    </Badge>
+                  )}
+                </Link>
+              ) : (
+                <Link className='buttonTo' to='../'>
+                  <HomeIcon
+                    sx={{ fontSize: 40 }}
+                    style={{ color: '#4966A6' }}
+                  />
+                </Link>
+              )}
+            </Grid>
+          )}
 
           {/* SEARCH BAR */}
-          <Grid item xs={12} sm={12} md={4} xl={6}>
-            <SearchBar />
-          </Grid>
+          {isMobile ? (
+            <Grid item xs={12} sm={12} md={4} xl={6}>
+              <SearchBar isMobile={true} />
+            </Grid>
+          ) : (
+            <Grid item xs={12} sm={12} md={4} xl={6}>
+              <SearchBar isMobile={false} />
+            </Grid>
+          )}
 
           {/* BUTTON */}
-          {/* <Grid item xs={1} sm={1} md={1} xl={1}>
-            {button === 'collection' ? (
-              <Link className='buttonTo' to='../collection'>
-                <Button
-                  sx={{
-                    height: '56px',
-                    fontWeight: 'bold',
-                  }}
-                  style={{ color: '#4966A6' }}
-                  variant='outlined'
-                  endIcon={<AppsIcon />}
-                >
-                  Collection
-                </Button>
-              </Link>
-            ) : (
-              <Link className='buttonTo' to='../'>
-                <Button
-                  sx={{
-                    height: '56px',
-                    fontWeight: 'bold',
-                  }}
-                  style={{ color: '#4966A6' }}
-                  variant='outlined'
-                  endIcon={<HomeIcon />}
-                >
-                  Home
-                </Button>
-              </Link>
-            )}
-          </Grid> */}
+          {!isMobile && (
+            <Grid item xs={1} sm={1} md={1} xl={1}>
+              {button === 'collection' ? (
+                <Link className='buttonTo' to='../collection'>
+                  <Button
+                    sx={{
+                      height: '56px',
+                      fontWeight: 'bold',
+                    }}
+                    style={{ color: '#4966A6' }}
+                    variant='outlined'
+                    endIcon={
+                      !favPics ? (
+                        <AppsIcon />
+                      ) : (
+                        <Badge badgeContent={numPicsOnColl()} color='primary'>
+                          <AppsIcon />
+                        </Badge>
+                      )
+                    }
+                  >
+                    Collection
+                  </Button>
+                </Link>
+              ) : (
+                <Link className='buttonTo' to='../'>
+                  <Button
+                    sx={{
+                      height: '56px',
+                      fontWeight: 'bold',
+                    }}
+                    style={{ color: '#4966A6' }}
+                    variant='outlined'
+                    endIcon={<HomeIcon />}
+                  >
+                    Home
+                  </Button>
+                </Link>
+              )}
+            </Grid>
+          )}
 
           <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
           {/* CHIPS */}
-          {chips && mobile === false && (
+          {chips && !isMobile && (
             <Grid
               sx={{
                 margin: '10px auto 20px auto',

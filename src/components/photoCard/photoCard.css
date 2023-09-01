@@ -1,12 +1,11 @@
 .photo-card {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   margin-top: calc(50px - 5px);
   border-radius: 4px;
   background-color: #fafafa;
-  width: 620px;
-  height: 700px;
+  width: 520px;
+  height: 600px;
   transition: all 1s;
 }
 
@@ -27,6 +26,21 @@
 .imagen-section img:hover {
   cursor: zoom-in;
   transform: scale(1.02);
+}
+
+.modal-imagen-section img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  margin: auto auto;
+  border-radius: 4px;
+  max-height: 75vh;
+  max-width: 100%;
+  object-fit: contain;
+  transition: 0.3s;
 }
 
 .action-span {

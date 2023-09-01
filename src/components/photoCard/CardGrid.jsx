@@ -28,7 +28,6 @@ const CardGrid = (initialPics) => {
 
   const noMoreCalls = () => {
     Swal.fire({
-      title: 'Sorry!',
       text: 'We apologize, but this free service has a limited number of requests. Please wait a few minutes!',
       imageUrl: 'https://unsplash.it/400/200',
       imageWidth: 400,
@@ -40,8 +39,6 @@ const CardGrid = (initialPics) => {
     <>
       {photoList === 'noMoreCallsToApi' ? (
         <span className='alert-container'>{noMoreCalls()}</span>
-      ) : photoList === 'loading' ? (
-        <h1>Loading Pics</h1>
       ) : (
         <div className='photo-grid'>
           <Intro />
