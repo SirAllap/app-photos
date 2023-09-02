@@ -37,14 +37,11 @@
   transition: 0.3s;
 }
 
-.action-span {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.action-span-collection {
   background-color: #f2f1f14f;
   border-radius: 4px;
 }
-.action-span span {
+.action-span-collection span {
   cursor: pointer;
   border: none;
   border-radius: 4px;
@@ -52,11 +49,11 @@
   margin: 10px;
   transition: 0.3s;
 }
-.action-span span:hover {
+.action-span-collection span:hover {
   transform: scale(1.2);
 }
 
-.action-span .fav-icon:hover {
+.action-span-collection .fav-icon:hover {
   -webkit-animation: fav-icon 1.5s ease-in-out infinite both;
   animation: fav-icon 1.5s ease-in-out infinite both;
 }
@@ -127,4 +124,9 @@
     -webkit-animation-timing-function: ease-out;
     animation-timing-function: ease-out;
   }
+}
+
+.helper-text {
+  text-align: center;
+  text-justify: inter-word;
 }

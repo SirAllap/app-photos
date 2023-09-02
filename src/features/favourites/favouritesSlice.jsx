@@ -56,7 +56,6 @@ export const favouriteSlice = createSlice({
       state.savedPhotos = result
     },
     sortByWidth: (state, action) => {
-      console.log('ancho')
       const result = state.savedPhotos.sort((a, b) =>
         a.width < b.width ? 1 : -1
       )

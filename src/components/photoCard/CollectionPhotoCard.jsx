@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './collectionPhotoCard.css'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken'
 import { useDispatch } from 'react-redux'
 import { removeThisPhotoFromCollection } from '../../features/favourites/favouritesSlice'
@@ -14,7 +13,9 @@ import {
   ListItemAvatar,
   ListItemText,
   Modal,
+  Typography,
   Stack,
+  Paper,
 } from '@mui/material'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import { green, pink } from '@mui/material/colors'
@@ -83,6 +84,7 @@ const CollectionPhotoCard = ({
     color: 'rgba(64, 64, 64)',
     fontWeight: 'bold',
   }
+
   const likeAvatar = {
     bgcolor: pink[500],
   }
@@ -130,35 +132,43 @@ const CollectionPhotoCard = ({
   return (
     <>
       <Stack className='photo-card'>
-        <section>
-          <ListItemText
+        <section className='helper-text'>
+          <Paper
+            elevation={0}
             sx={{
-              textAlign: 'center',
-              p: 1,
+              marginBottom: '20px',
+              marginTop: '10px',
+              backgroundColor: '#fafafa',
+              fontWeight: 600,
             }}
-            disableTypography
-            secondary={width + ' x ' + height}
-          />
+          >
+            <Typography variant='p' align='center'>
+              {width + ' x ' + height}
+            </Typography>
+          </Paper>
         </section>
         <section className='imagen-section'>
           <img src={photo} alt='' onClick={handleOpen} />
         </section>
-        <section>
-          <ListItemText
+        <section className='helper-text'>
+          <Paper
+            elevation={0}
             sx={{
-              textAlign: 'center',
-              p: 1,
+              marginTop: '15px',
+              backgroundColor: '#fafafa',
+              fontWeight: 600,
             }}
-            disableTypography
-            secondary={
-              !description
+          >
+            <Typography variant='p' align='center' gutterBottom>
+              {!description
                 ? altDescription
                 : !altDescription
                 ? 'No description yet'
-                : description
-            }
-          />
+                : description}
+            </Typography>
+          </Paper>
         </section>
+
         <section className='action-span'>
           <span className='download'>
             <DownloadForOfflineIcon
