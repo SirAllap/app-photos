@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './photoCard.css'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -74,14 +74,9 @@ const PhotoCard = ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
-    height: '80%',
+    width: '100vw',
     maxWidth: '90%',
     maxHeight: '90%',
-    borderRadius: 1,
-    bgcolor: 'rgba(255, 255, 255, 0.85)',
-    boxShadow: 24,
-    p: 6,
   }
 
   const [open, setOpen] = React.useState(false)
@@ -125,6 +120,9 @@ const PhotoCard = ({
         onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
+        BackdropProps={{
+          style: { backgroundColor: 'hsla(0, 0%, 98%, 0.8)' },
+        }}
       >
         <Box sx={modalStyle}>
           <Grid

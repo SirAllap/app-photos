@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './collectionPhotoCard.css'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken'
@@ -13,9 +13,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Modal,
-  Typography,
   Stack,
-  Paper,
 } from '@mui/material'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import { green, pink } from '@mui/material/colors'
@@ -25,6 +23,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import Swal from 'sweetalert2'
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
 import CloseIcon from '@mui/icons-material/Close'
+import SaveAsIcon from '@mui/icons-material/SaveAs'
 
 const CollectionPhotoCard = ({
   index,
@@ -40,7 +39,18 @@ const CollectionPhotoCard = ({
 }) => {
   const dispatch = useDispatch()
   const [editDescription, setEditDescription] = useState('')
+  const [fetchDescription, setFetchDescription] = useState('')
   const [inputState, setInputState] = useState(true)
+
+  useEffect(() => {
+    editDescription
+      ? setFetchDescription(editDescription)
+      : !editDescription && description
+      ? setFetchDescription(description)
+      : !editDescription && !description && altDescription
+      ? setFetchDescription(altDescription)
+      : setFetchDescription('This image do not have a description yet')
+  }, [editDescription, altDescription, description])
 
   const downloadPhoto = () => {
     const fileName = description
@@ -96,19 +106,19 @@ const CollectionPhotoCard = ({
     bgcolor: '#4966A6',
   }
   const onEditAvatar = {
+    cursor: 'pointer',
     color: '#4966A6',
     bgcolor: '#FABE58',
   }
 
-  const keypress = (e) => {
-    if (e.keyCode === 13) {
-      setEditDescription(e.target.value)
-      e.target.value = ''
-    }
+  const inputOnChange = (e) => {
+    setInputState(false)
+    setEditDescription(e.target.value)
   }
 
-  const handleClick = (e) => {
-    setInputState(!inputState ? true : false)
+  const handleClickAndSave = (e) => {
+    setInputState(true)
+    console.log(editDescription)
   }
 
   const collectionModalStyle = {
@@ -131,25 +141,16 @@ const CollectionPhotoCard = ({
   const handleClose = () => setOpen(false)
   return (
     <>
-      <Stack className='photo-card'>
-        <section className='helper-text'>
-          <Paper
-            elevation={0}
-            sx={{
-              marginBottom: '20px',
-              marginTop: '10px',
-              backgroundColor: '#fafafa',
-              fontWeight: 600,
-            }}
-          >
-            <Typography variant='p' align='center'>
-              {width + ' x ' + height}
-            </Typography>
-          </Paper>
-        </section>
-        <section className='imagen-section'>
-          <img src={photo} alt='' onClick={handleOpen} />
-        </section>
+      {/* <Stack>
+        <Paper
+          elevation={0}
+          sx={{
+            marginBottom: '20px',
+            marginTop: '10px',
+            backgroundColor: '#fafafa',
+            fontWeight: 600,
+          }}
+        ></Paper>
         <section className='helper-text'>
           <Paper
             elevation={0}
@@ -160,38 +161,45 @@ const CollectionPhotoCard = ({
             }}
           >
             <Typography variant='p' align='center' gutterBottom>
-              {!description
-                ? altDescription
-                : !altDescription
-                ? 'No description yet'
-                : description}
+              {fetchDescription}
             </Typography>
           </Paper>
         </section>
+      </Stack> */}
 
-        <section className='action-span'>
-          <span className='download'>
-            <DownloadForOfflineIcon
-              onClick={downloadPhoto}
-              fontSize='large'
-              sx={{ color: '#4966A6' }}
-            />
-          </span>
-          <span className='fav-icon'>
-            <HeartBrokenIcon
-              onClick={handleToRemoveFromCollection}
-              className='heart-icon-liked'
-              fontSize='large'
-              sx={{ color: '#B65F9F', '&:hover': { color: '#4966A6' } }}
-            />
-          </span>
-          <span className='full-screen'>
-            <InfoRoundedIcon
-              onClick={handleOpen}
-              fontSize='large'
-              sx={{ color: '#4966A6' }}
-            />
-          </span>
+      <Stack className='photo-card-collection'>
+        <section className='card-items-collection'>
+          <section className='imagen-section-collection'>
+            <p>{width + ' x ' + height}</p>
+
+            <img src={photo} alt='' onClick={handleOpen} />
+
+            <p>{fetchDescription}</p>
+          </section>
+          <section className='action-span-collection'>
+            <span className='download-collection'>
+              <DownloadForOfflineIcon
+                onClick={downloadPhoto}
+                fontSize='large'
+                sx={{ color: '#4966A6' }}
+              />
+            </span>
+            <span className='fav-icon-collection'>
+              <HeartBrokenIcon
+                onClick={handleToRemoveFromCollection}
+                className='heart-icon-liked-collection'
+                fontSize='large'
+                sx={{ color: '#B65F9F', '&:hover': { color: '#4966A6' } }}
+              />
+            </span>
+            <span className='full-screen-collection'>
+              <InfoRoundedIcon
+                onClick={handleOpen}
+                fontSize='large'
+                sx={{ color: '#4966A6' }}
+              />
+            </span>
+          </section>
         </section>
       </Stack>
       {/* modal */}
@@ -226,36 +234,30 @@ const CollectionPhotoCard = ({
                         variant='rounded'
                         sx={inputState ? editAvatar : onEditAvatar}
                       >
-                        <EditRoundedIcon onClick={handleClick} />
+                        {inputState ? (
+                          <EditRoundedIcon onClick={inputOnChange} />
+                        ) : (
+                          <SaveAsIcon onClick={handleClickAndSave} />
+                        )}
                       </Avatar>
                     </ListItemAvatar>
 
                     <Input
-                      placeholder='Edit description'
+                      defaultValue={fetchDescription}
                       fullWidth
-                      onKeyDown={keypress}
+                      onChange={inputOnChange}
                       disabled={inputState}
                     />
                   </ListItem>
-                  <ListItemText
-                    primary={
-                      editDescription
-                        ? `Your custom description: ${editDescription}`
-                        : editDescription
-                    }
-                    secondary={
-                      !description
-                        ? 'This image do not have a description yet'
-                        : `Description: ${description}`
-                    }
-                  />
+                  <ListItemText primary={fetchDescription} />
                 </Grid>
               }
             </Grid>
             {/* likes+date+size */}
             <Grid container direction='row' justifyContent='center'>
+              {<Grid item xs={0} sm={1} md={1} xl={1}></Grid>}
               {
-                <Grid item xs={12} sm={4} md={4} xl={4}>
+                <Grid item xs={12} sm={3} md={3} xl={3}>
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar variant='rounded' sx={likeAvatar}>
@@ -267,7 +269,7 @@ const CollectionPhotoCard = ({
                 </Grid>
               }
               {
-                <Grid item xs={12} sm={4} md={4} xl={4}>
+                <Grid item xs={12} sm={3} md={3} xl={3}>
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar variant='rounded' sx={dateAvatar}>
@@ -279,7 +281,7 @@ const CollectionPhotoCard = ({
                 </Grid>
               }
               {
-                <Grid item xs={12} sm={4} md={4} xl={4}>
+                <Grid item xs={12} sm={3} md={3} xl={3}>
                   <ListItem>
                     <ListItemAvatar>
                       <Avatar variant='rounded' sx={dateAvatar}>

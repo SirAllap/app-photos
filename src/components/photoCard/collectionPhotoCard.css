@@ -1,44 +1,44 @@
-.photo-card {
+.photo-card-collection {
   display: flex;
   justify-content: space-between;
   margin-top: calc(50px - 5px);
   border-radius: 4px;
   background-color: #fafafa;
   width: 620px;
-  height: 700px;
+  min-height: fit-content;
 }
 
-.imagen-section {
+.imagen-section-collection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 600px;
 }
-.imagen-section img {
+.imagen-section-collection img {
   margin: auto auto;
   border-radius: 4px;
-  height: 600px;
+  height: 370px;
   width: 98%;
   object-fit: cover;
   transition: 0.3s;
 }
-.imagen-section img:hover {
+.imagen-section-collection .text-collection {
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding: 8px;
+  font-weight: 700;
+  color: #5b5b5bd9;
+}
+.imagen-section-collection img:hover {
   cursor: zoom-in;
   transform: scale(1.02);
 }
 
-.modal-imagen-collection-section img {
-  padding: auto;
-  margin: auto;
-  border-radius: 4px;
-  max-height: 70vh;
-  max-width: 100%;
-  object-fit: contain;
-  transition: 0.3s;
-}
-
 .action-span-collection {
-  background-color: #f2f1f14f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
   border-radius: 4px;
 }
 .action-span-collection span {
@@ -53,80 +53,27 @@
   transform: scale(1.2);
 }
 
-.action-span-collection .fav-icon:hover {
-  -webkit-animation: fav-icon 1.5s ease-in-out infinite both;
-  animation: fav-icon 1.5s ease-in-out infinite both;
-}
-@-webkit-keyframes fav-icon {
-  from {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-transform-origin: center center;
-    transform-origin: center center;
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-  10% {
-    -webkit-transform: scale(0.91);
-    transform: scale(0.91);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  17% {
-    -webkit-transform: scale(0.98);
-    transform: scale(0.98);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-  33% {
-    -webkit-transform: scale(0.87);
-    transform: scale(0.87);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  45% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-}
-@keyframes fav-icon {
-  from {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-transform-origin: center center;
-    transform-origin: center center;
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-  10% {
-    -webkit-transform: scale(0.91);
-    transform: scale(0.91);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  17% {
-    -webkit-transform: scale(0.98);
-    transform: scale(0.98);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
-  33% {
-    -webkit-transform: scale(0.87);
-    transform: scale(0.87);
-    -webkit-animation-timing-function: ease-in;
-    animation-timing-function: ease-in;
-  }
-  45% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-  }
+.modal-imagen-collection-section img {
+  padding: auto;
+  margin: auto;
+  border-radius: 4px;
+  max-height: 70vh;
+  max-width: 100%;
+  object-fit: contain;
+  transition: 0.3s;
 }
 
-.helper-text {
-  text-align: center;
-  text-justify: inter-word;
+@media only screen and (max-width: 900px) {
+  .photo-card-collection {
+    margin-top: calc(20px - 5px);
+    width: 85vw;
+    height: fit-content;
+  }
+  .imagen-section-collection img {
+    margin: auto auto;
+    border-radius: 4px;
+    height: 25vh;
+    object-fit: cover;
+    transition: 0.3s;
+  }
 }

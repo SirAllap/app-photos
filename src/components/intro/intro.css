@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 .introText {
-  align-items: center;
+  width: 100%;
 }
 
 h2 {
   margin: auto;
-  width: 70vw;
+  width: fit-content;
+  max-width: 70vw;
   margin-top: 30px;
   text-align: justify;
   text-justify: inter-word;
@@ -20,4 +21,15 @@ h2 {
   color: white;
   padding: 0.4em 0.5em;
   transition: 500ms;
+}
+
+@media only screen and (max-width: 900px) {
+  h2 {
+    font-size: 1.1rem;
+    margin: auto;
+    width: 100%;
+    text-align: justify;
+    text-justify: inter-word;
+    line-height: 2.4rem;
+  }
 }

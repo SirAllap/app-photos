@@ -75,7 +75,7 @@ const Header = ({ chips, button, mobile }) => {
           )}
 
           {/* SEARCH BAR */}
-          {isMobile ? (
+          {isMobile && button !== 'collection' ? null : isMobile ? (
             <Grid item xs={12} sm={12} md={4} xl={6}>
               <SearchBar isMobile={true} />
             </Grid>
