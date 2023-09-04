@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from 'react'
-import './cardGrid.css'
-import PhotoCard from './PhotoCard'
 import { useSelector } from 'react-redux'
+import './cardGrid.css'
+
+//? COMPONENTS
+import PhotoCard from './PhotoCard'
+import Intro from '../intro/Intro'
+
+//? SELECTORS
 import {
   initialPhotos,
-  searchedPicsByUserInput,
   selectStatus,
+  searchedPicsByUserInput,
 } from '../../features/search/searchSlice'
-import Intro from '../intro/Intro'
+
+//? MUI COMPONENTS
+import { LinearProgress } from '@mui/material'
+
+//? SWEET ALERT
 import Swal from 'sweetalert2'
 
-const CardGrid = (initialPics) => {
+const CardGrid = () => {
   const fetchInitialPhotos = useSelector(initialPhotos)
-  const fetchSearchedPicsByUserInput = useSelector(searchedPicsByUserInput)
   const fetchStatus = useSelector(selectStatus)
+  const fetchSearchedPicsByUserInput = useSelector(searchedPicsByUserInput)
   const [photoList, setPhotoList] = useState('')
 
   useEffect(() => {
-    if (fetchStatus === 'succeeded') {
-      setPhotoList('loadData')
-    } else if (fetchStatus === 'loading') {
-      setPhotoList('loading')
-    } else if (fetchStatus === 'failed') {
-      setPhotoList('noMoreCallsToApi')
+    if (fetchStatus === 'rejected') {
+      setPhotoList('rejected')
+    }
+    // else if (fetchStatus === 'pending') {
+    //   setPhotoList('pending')
+    // }
+    else if (fetchStatus === 'fulfilled') {
+      setPhotoList('fulfilled')
     }
   }, [fetchStatus])
 
@@ -37,45 +48,48 @@ const CardGrid = (initialPics) => {
   }
   return (
     <>
-      {photoList === 'noMoreCallsToApi' ? (
+      {photoList === 'rejected' ? (
         <span className='alert-container'>{noMoreCalls()}</span>
+      ) : photoList === 'pending' ? (
+        <LinearProgress color='secondary' />
       ) : (
-        <div className='photo-grid'>
-          <Intro />
-          {fetchSearchedPicsByUserInput.length === 0
-            ? fetchInitialPhotos.map((e, i) => (
-                <PhotoCard
-                  index={i}
-                  id={e.id}
-                  date={e.date}
-                  width={e.width}
-                  height={e.height}
-                  description={e.description}
-                  altDescription={e.descriptionFromAlt}
-                  photo={e.uriMedium}
-                  likes={e.likes}
-                  downloadLink={e.download}
-                  key={i}
-                />
-              ))
-            : fetchSearchedPicsByUserInput.map((e, i) => (
-                <PhotoCard
-                  index={i}
-                  id={e.id}
-                  date={e.date}
-                  width={e.width}
-                  height={e.height}
-                  description={e.description}
-                  altDescription={e.descriptionFromAlt}
-                  photo={e.uriMedium}
-                  likes={e.likes}
-                  downloadLink={e.download}
-                  key={i}
-                />
-              ))}
-        </div>
+        photoList === 'fulfilled' && (
+          <div className='photo-grid'>
+            <Intro />
+            {fetchSearchedPicsByUserInput.length === 0
+              ? fetchInitialPhotos.map((e, i) => (
+                  <PhotoCard
+                    index={i}
+                    id={e.id}
+                    date={e.date}
+                    width={e.width}
+                    height={e.height}
+                    description={e.description}
+                    altDescription={e.descriptionFromAlt}
+                    photo={e.uriMedium}
+                    likes={e.likes}
+                    downloadLink={e.download}
+                    key={i}
+                  />
+                ))
+              : fetchSearchedPicsByUserInput.map((e, i) => (
+                  <PhotoCard
+                    index={i}
+                    id={e.id}
+                    date={e.date}
+                    width={e.width}
+                    height={e.height}
+                    description={e.description}
+                    altDescription={e.descriptionFromAlt}
+                    photo={e.uriMedium}
+                    likes={e.likes}
+                    downloadLink={e.download}
+                    key={i}
+                  />
+                ))}
+          </div>
+        )
       )}
-      {/* {photoList === 'loading' && } */}
     </>
   )
 }

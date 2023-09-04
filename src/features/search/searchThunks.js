@@ -1,0 +1,123 @@
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
+
+const URL = {
+    baseURL: `https://api.unsplash.com/`,
+    urlRandomParameter: {
+        urlParam: `photos/random?count=`,
+        numRandomPics: 30,
+    },
+    urlRandomParameterToGet1: {
+        urlParam: `photos/random?count=`,
+        numRandomPics: 1,
+    },
+    urlSearchParameter: {
+        urlParam: `search/photos?query=`,
+    },
+    clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY}`
+}
+
+export const fetchInitialPics = createAsyncThunk(
+    'browsedImages/fetchInitialPics',
+    async () => {
+        try {
+            let initialFetch = []
+            initialFetch = await axios(
+                URL.baseURL +
+                URL.urlRandomParameter.urlParam +
+                URL.urlRandomParameter.numRandomPics +
+                URL.clientID
+            ).then((res) => {
+                return res.data
+            })
+            const fetchDataFromPics = initialFetch.map((e, i) => {
+                return {
+                    id: e.id,
+                    index: i,
+                    date: e.created_at,
+                    width: e.width,
+                    height: e.height,
+                    description: e.description,
+                    descriptionFromAlt: e.alt_description,
+                    uriMedium: e.urls.regular,
+                    uriBig: e.urls.full,
+                    likes: e.likes,
+                    download: e.links.download,
+                }
+            })
+            return fetchDataFromPics
+        } catch (error) {
+            console.log('Log ERROR: ' + error)
+            throw new Error(`We could not fetch the initial photos ${error.message}`)
+        }
+    }
+)
+
+export const fetch1Pic = createAsyncThunk(
+    'browsedImages/fetch1Pic',
+    async () => {
+        try {
+            let initialFetch1 = await axios(
+                URL.baseURL +
+                URL.urlRandomParameterToGet1.urlParam +
+                URL.urlRandomParameterToGet1.numRandomPics +
+                URL.clientID
+            ).then((res) => {
+                return res.data
+            })
+            const fetchDataFromThePic = initialFetch1.map((e, i) => {
+                return {
+                    index: i,
+                    id: e.id,
+                    date: e.created_at,
+                    width: e.width,
+                    height: e.height,
+                    description: e.description,
+                    descriptionFromAlt: e.alt_description,
+                    uriMedium: e.urls.regular,
+                    likes: e.likes,
+                    download: e.links.download,
+                }
+            })
+            return fetchDataFromThePic[0]
+        } catch (error) {
+            console.log('Log ERROR: ' + error)
+            throw new Error(`We could not fetch 1 photo ${error.message}`)
+        }
+    }
+)
+
+export const findPicsByUserInput = createAsyncThunk(
+    'browsedImages/findPicsByUserInput',
+    async (userInput) => {
+        try {
+
+            let search = []
+            search = await axios(
+                URL.baseURL + URL.urlSearchParameter.urlParam + userInput + URL.clientID
+            ).then((res) => {
+                return res.data.results
+            })
+            const fetchDataFromSearchedPic = search.map((e, i) => {
+                return {
+                    index: i,
+                    id: e.id,
+                    date: e.created_at,
+                    width: e.width,
+                    height: e.height,
+                    description: e.description,
+                    descriptionFromAlt: e.alt_description,
+                    uriMedium: e.urls.regular,
+                    likes: e.likes,
+                    download: e.links.download,
+                    input: userInput,
+                }
+            })
+            return fetchDataFromSearchedPic
+        } catch (error) {
+            console.log('Log ERROR: ' + error)
+            throw new Error(`We could not search by that input ${error.message}`)
+        }
+    }
+)

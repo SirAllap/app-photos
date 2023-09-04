@@ -17,13 +17,16 @@
   margin: auto auto;
   border-radius: 4px;
   height: 370px;
-  width: 98%;
+  width: 100%;
   object-fit: cover;
   transition: 0.3s;
+  filter: grayscale(55%);
 }
 .imagen-section img:hover {
-  cursor: zoom-in;
+  cursor: pointer;
   transform: scale(1.02);
+
+  filter: grayscale(0%);
 }
 
 .action-span {
@@ -160,5 +163,9 @@
     height: 25vh;
     object-fit: cover;
     transition: 0.3s;
+    filter: grayscale(0%);
+  }
+  .imagen-section img:hover {
+    filter: grayscale(0%);
   }
 }

@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { findPicsByUserInput } from '../../features/search/searchSlice'
+import { findPicsByUserInput } from '../../features/search/searchThunks'
 
 const SearchBar = ({ isMobile }) => {
   const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const SearchBar = ({ isMobile }) => {
     <>
       <TextField
         size={isMobile ? 'small' : 'regular'}
-        label={userInput}
+        placeholder={userInput}
         id='outlined-basic'
         variant='outlined'
         onKeyDown={keypress}

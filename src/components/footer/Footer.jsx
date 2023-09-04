@@ -1,10 +1,10 @@
 import React from 'react'
 import './footer.css'
+
+//? MUI COMPONENTS
 import GitHubIcon from '@mui/icons-material/GitHub'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import { Link } from '@mui/material'
+import { Link, Typography, Stack } from '@mui/material'
 
 const Footer = () => {
   return (

@@ -1,15 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import './photoCard.css'
+
+//? ACTIONS
+import { saveThisPhotoToCollection } from '../../features/favourites/favouritesSlice'
+import { removeThisPhotoFromHome } from '../../features/search/searchSlice'
+import { fetch1Pic } from '../../features/search/searchThunks'
+
+//? MUI COMPONENTS
+import { Box, Grid, Modal, Stack } from '@mui/material'
 import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import OpenInFullIcon from '@mui/icons-material/OpenInFull'
-import { useDispatch } from 'react-redux'
-import { saveThisPhotoToCollection } from '../../features/favourites/favouritesSlice'
-import {
-  fetch1Pic,
-  removeThisPhotoFromHome,
-} from '../../features/search/searchSlice'
-import { Box, Grid, Modal, Stack } from '@mui/material'
+
+//? SWEET ALERT
 import Swal from 'sweetalert2'
 
 const PhotoCard = ({
@@ -27,6 +31,17 @@ const PhotoCard = ({
   const dispatch = useDispatch()
 
   const downloadPhoto = () => {
+    Swal.fire({
+      position: 'bottom-end',
+      icon: 'info',
+      text: 'Downloading',
+      width: 'auto',
+      heightAuto: true,
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: 1000,
+      backdrop: false,
+    })
     const fileName = description
     const aTag = document.createElement('a')
     aTag.href = downloadLink
@@ -39,11 +54,11 @@ const PhotoCard = ({
   }
 
   const handleSave2Collection = () => {
-    const d = date.split('T')[0]
+    const formattedDate = date.split('T')[0]
     const imgData = {
       index: index,
       id: id,
-      date: d,
+      date: formattedDate,
       width: width,
       height: height,
       description: description,
@@ -53,20 +68,21 @@ const PhotoCard = ({
       downloadLink: downloadLink,
     }
     Swal.fire({
-      position: 'bottom',
+      position: 'bottom-end',
       icon: 'success',
       text: 'The photo has been successfully added to the collection',
       width: 'auto',
       heightAuto: true,
       showConfirmButton: false,
-      timer: 1500,
-      timerProgressBar: 1500,
+      timer: 1000,
+      timerProgressBar: 1000,
+      backdrop: false,
     })
     setTimeout(() => {
       dispatch(saveThisPhotoToCollection(imgData))
       dispatch(fetch1Pic())
       dispatch(removeThisPhotoFromHome(id))
-    }, 1500)
+    }, 500)
   }
 
   const modalStyle = {
@@ -79,7 +95,7 @@ const PhotoCard = ({
     maxHeight: '90%',
   }
 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 

@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import './header.css'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import './header.css'
+
+//? COMPONENTS
+import SearchBar from '../searchBar/SearchBar'
+import Chips from '../chips/Chips'
+
+//? SELECTORS
+import { savedPhotos } from '../../features/favourites/favouritesSlice'
+
+//? MUI COMPONENTS
+import { AppBar, Badge, Grid, Button } from '@mui/material'
 import AppsIcon from '@mui/icons-material/Apps'
 import HomeIcon from '@mui/icons-material/Home'
-import Button from '@mui/material/Button'
-import SearchBar from '../searchBar/SearchBar'
-import { AppBar, Badge, Grid } from '@mui/material'
-import Chips from '../chips/Chips'
-import { useSelector } from 'react-redux'
-import { savedPhotos } from '../../features/favourites/favouritesSlice'
 
 const Header = ({ chips, button, mobile }) => {
   const [isMobile, setIsMobile] = useState()
@@ -39,7 +44,7 @@ const Header = ({ chips, button, mobile }) => {
           <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
           {/* LOGO */}
           <Grid item xs={9.5} sm={0} md={3} xl={3}>
-            <Link className='logoImg' to='../'>
+            <Link className='logo-img' to='../'>
               <img src={require('../../assets/images/logo.png')} alt='logo' />
             </Link>
           </Grid>
@@ -48,7 +53,7 @@ const Header = ({ chips, button, mobile }) => {
           {isMobile && (
             <Grid item xs={2} sm={0} md={3} xl={3}>
               {button === 'collection' ? (
-                <Link className='buttonTo' to='../collection'>
+                <Link to='../collection'>
                   {!favPics ? (
                     <AppsIcon
                       sx={{ fontSize: 40 }}
@@ -64,7 +69,7 @@ const Header = ({ chips, button, mobile }) => {
                   )}
                 </Link>
               ) : (
-                <Link className='buttonTo' to='../'>
+                <Link to='../'>
                   <HomeIcon
                     sx={{ fontSize: 40 }}
                     style={{ color: '#4966A6' }}
