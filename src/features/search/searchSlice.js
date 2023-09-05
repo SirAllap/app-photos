@@ -8,6 +8,7 @@ const initialState = {
     input: [],
   },
   status: 'idle',
+  inputStatus: 'idle',
   error: 'null',
 }
 
@@ -52,15 +53,19 @@ export const searchSlice = createSlice({
       })
 
       .addCase(findPicsByUserInput.pending, (state, action) => {
-        state.status = 'pending'
+        state.inputStatus = 'pending'
       })
       .addCase(findPicsByUserInput.fulfilled, (state, action) => {
-        state.status = 'fulfilled'
-        state.search.input = action.payload[0].input
-        state.search.pics = action.payload
+        if (action.payload[0] === undefined) {
+          state.inputStatus = 'rejected'
+        } else {
+          state.inputStatus = 'fulfilled'
+          state.search.input = action.payload[0].input
+          state.search.pics = action.payload
+        }
       })
       .addCase(findPicsByUserInput.rejected, (state, action) => {
-        state.status = 'rejected'
+        state.inputStatus = 'rejected'
         state.error = action.error.message
       })
 
@@ -84,3 +89,4 @@ export const initialPhotos = (state) => state.browsedImages.initialFetch
 export const searchedPicsByUserInput = (state) =>
   state.browsedImages.search.pics
 export const selectStatus = (state) => state.browsedImages.status
+export const selectInputStatus = (state) => state.browsedImages.inputStatus
