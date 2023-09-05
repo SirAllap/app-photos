@@ -23,9 +23,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
-          color='primary'
+          style={{ color: '#9d81b6' }}
           variant='outlined'
           label='Dog'
           onClick={handleClick}
@@ -37,8 +38,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='One Piece'
@@ -51,8 +54,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Rock'
@@ -65,8 +70,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Ice'
@@ -79,8 +86,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Keyboard'
@@ -93,8 +102,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='React'
@@ -107,8 +118,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Hate'

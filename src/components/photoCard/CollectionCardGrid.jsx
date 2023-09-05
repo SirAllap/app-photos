@@ -4,7 +4,6 @@ import './collectionCardGrid.css'
 
 //? COMPONENTS
 import CollectionPhotoCard from './CollectionPhotoCard'
-import SearchBar from '../searchBar/SearchBar'
 import CollectionModal from '../modal/CollectionModal'
 
 //? ACTIONS
@@ -92,7 +91,6 @@ const CollectionCardGrid = (initialPics) => {
 
           <Grid item xs={1}></Grid>
         </Grid>
-        <SearchBar isMobile={true} />
         {savedPics.length === 0 ? (
           <img
             className='nothing-added'
@@ -112,6 +110,7 @@ const CollectionCardGrid = (initialPics) => {
               photo={e.photo}
               likes={e.likes}
               downloadLink={e.downloadLink}
+              downloadLocationLink={e.downloadLocationLink}
               key={i}
               customDescription={
                 e.customDescription !== '' ? e.customDescription : ''
@@ -131,6 +130,7 @@ const CollectionCardGrid = (initialPics) => {
               photo={e.photo}
               likes={e.likes}
               downloadLink={e.downloadLink}
+              downloadLocationLink={e.downloadLocationLink}
               key={i}
               customDescription={
                 e.customDescription !== '' ? e.customDescription : ''

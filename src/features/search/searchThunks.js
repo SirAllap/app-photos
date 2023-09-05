@@ -43,7 +43,10 @@ export const fetchInitialPics = createAsyncThunk(
                     uriMedium: e.urls.regular,
                     uriBig: e.urls.full,
                     likes: e.likes,
-                    download: e.links.download,
+                    download: (e.links.download.split('?')[0].concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)),
+                    userName: e.user.name,
+                    downloads: e.downloads,
+                    views: e.views,
                 }
             })
             return fetchDataFromPics
@@ -77,7 +80,10 @@ export const fetch1Pic = createAsyncThunk(
                     descriptionFromAlt: e.alt_description,
                     uriMedium: e.urls.regular,
                     likes: e.likes,
-                    download: e.links.download,
+                    download: (e.links.download.split('?')[0].concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)),
+                    userName: e.user.name,
+                    downloads: e.downloads,
+                    views: e.views,
                 }
             })
             return fetchDataFromThePic[0]
@@ -110,8 +116,11 @@ export const findPicsByUserInput = createAsyncThunk(
                     descriptionFromAlt: e.alt_description,
                     uriMedium: e.urls.regular,
                     likes: e.likes,
-                    download: e.links.download,
+                    download: (e.links.download.split('?')[0].concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)),
                     input: userInput,
+                    userName: e.user.name,
+                    downloads: e.downloads,
+                    views: e.views,
                 }
             })
             return fetchDataFromSearchedPic

@@ -11,27 +11,32 @@ import Chips from '../chips/Chips'
 import { savedPhotos } from '../../features/favourites/favouritesSlice'
 
 //? MUI COMPONENTS
-import { AppBar, Badge, Grid, Button } from '@mui/material'
-import AppsIcon from '@mui/icons-material/Apps'
-import HomeIcon from '@mui/icons-material/Home'
+import {
+  AppBar,
+  Badge,
+  Grid,
+  Button,
+  Avatar,
+  useMediaQuery,
+} from '@mui/material'
+import PermMediaOutlinedIcon from '@mui/icons-material/PermMediaOutlined'
+import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined'
 
 const Header = ({ chips, button, mobile }) => {
-  const [isMobile, setIsMobile] = useState()
   const favPics = useSelector(savedPhotos)
+
+  const matches = useMediaQuery('(max-width:900px)')
 
   const numPicsOnColl = () => {
     return favPics.length
   }
-  useEffect(() => {
-    window.innerWidth < 900 ? setIsMobile(true) : setIsMobile(false)
-  }, [])
 
   return (
     <>
       <AppBar
         position='sticky'
         top='0px'
-        style={{ background: 'rgba(255, 255, 255, 0.62)', boxShadow: 'none' }}
+        style={{ background: 'rgba(255, 255, 255, 0.65)', boxShadow: 'none' }}
         className='container'
       >
         <Grid
@@ -43,71 +48,81 @@ const Header = ({ chips, button, mobile }) => {
         >
           <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
           {/* LOGO */}
-          <Grid item xs={9.5} sm={0} md={3} xl={3}>
+          <Grid item xs={9} sm={0} md={3} xl={3}>
             <Link className='logo-img' to='../'>
               <img src={require('../../assets/images/logo.png')} alt='logo' />
             </Link>
           </Grid>
 
           {/* BUTTON-MOBILE */}
-          {isMobile && (
+          {matches && (
             <Grid item xs={2} sm={0} md={3} xl={3}>
               {button === 'collection' ? (
                 <Link to='../collection'>
                   {!favPics ? (
-                    <AppsIcon
-                      sx={{ fontSize: 40 }}
-                      style={{ color: '#4966A6' }}
-                    />
-                  ) : (
-                    <Badge badgeContent={numPicsOnColl()} color='primary'>
-                      <AppsIcon
+                    <Avatar variant='rounded' sx={mobileMenuIcon}>
+                      <PermMediaOutlinedIcon
                         sx={{ fontSize: 40 }}
-                        style={{ color: '#4966A6' }}
+                        style={{ color: '#9d81b6' }}
                       />
+                    </Avatar>
+                  ) : (
+                    <Badge badgeContent={numPicsOnColl()} color='secondary'>
+                      <Avatar variant='rounded' sx={mobileMenuIcon}>
+                        <PermMediaOutlinedIcon
+                          sx={{ fontSize: 40 }}
+                          style={{ color: '#9d81b6' }}
+                        />
+                      </Avatar>
                     </Badge>
                   )}
                 </Link>
               ) : (
                 <Link to='../'>
-                  <HomeIcon
-                    sx={{ fontSize: 40 }}
-                    style={{ color: '#4966A6' }}
-                  />
+                  <Avatar variant='rounded' sx={mobileMenuIcon}>
+                    <CottageOutlinedIcon
+                      sx={{ fontSize: 40 }}
+                      style={{ color: '#9d81b6' }}
+                    />
+                  </Avatar>
                 </Link>
               )}
             </Grid>
           )}
+          <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
 
           {/* SEARCH BAR */}
-          {isMobile && button !== 'collection' ? null : isMobile ? (
+          {matches && button !== 'collection' ? null : matches ? (
             <Grid item xs={12} sm={12} md={4} xl={6}>
-              <SearchBar isMobile={true} />
+              <SearchBar matches={true} />
             </Grid>
           ) : (
             <Grid item xs={12} sm={12} md={4} xl={6}>
-              <SearchBar isMobile={false} />
+              <SearchBar matches={false} />
             </Grid>
           )}
 
           {/* BUTTON */}
-          {!isMobile && (
+          {!matches && (
             <Grid item xs={1} sm={1} md={1} xl={1}>
               {button === 'collection' ? (
-                <Link className='buttonTo' to='../collection'>
+                <Link to='../collection'>
                   <Button
                     sx={{
                       height: '56px',
                       fontWeight: 'bold',
+                      borderColor: '#9d81b6',
+                      backgroundColor: '#9d81b615',
                     }}
-                    style={{ color: '#4966A6' }}
+                    style={{ color: '#7d4aa9' }}
+                    color='secondary'
                     variant='outlined'
                     endIcon={
                       !favPics ? (
-                        <AppsIcon />
+                        <PermMediaOutlinedIcon />
                       ) : (
-                        <Badge badgeContent={numPicsOnColl()} color='primary'>
-                          <AppsIcon />
+                        <Badge badgeContent={numPicsOnColl()} color='secondary'>
+                          <PermMediaOutlinedIcon />
                         </Badge>
                       )
                     }
@@ -116,15 +131,18 @@ const Header = ({ chips, button, mobile }) => {
                   </Button>
                 </Link>
               ) : (
-                <Link className='buttonTo' to='../'>
+                <Link to='../'>
                   <Button
                     sx={{
                       height: '56px',
                       fontWeight: 'bold',
+                      borderColor: '#9d81b6',
+                      backgroundColor: '#9d81b615',
                     }}
-                    style={{ color: '#4966A6' }}
+                    style={{ color: '#7d4aa9' }}
+                    color='secondary'
                     variant='outlined'
-                    endIcon={<HomeIcon />}
+                    endIcon={<CottageOutlinedIcon />}
                   >
                     Home
                   </Button>
@@ -135,7 +153,7 @@ const Header = ({ chips, button, mobile }) => {
 
           <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
           {/* CHIPS */}
-          {chips && !isMobile && (
+          {chips && !matches && (
             <Grid
               sx={{
                 margin: '10px auto 20px auto',
@@ -156,3 +174,8 @@ const Header = ({ chips, button, mobile }) => {
 }
 
 export default Header
+
+const mobileMenuIcon = {
+  bgcolor: '#fafafa',
+  p: 1.2,
+}

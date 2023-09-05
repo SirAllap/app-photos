@@ -7,10 +7,10 @@ import { removeThisPhotoFromCollection } from '../../features/favourites/favouri
 import { manageModalView } from '../../features/favourites/favouritesSlice'
 
 //? MUI COMPONENTS
-import { Stack } from '@mui/material'
-import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
+import { Link, Stack } from '@mui/material'
+import TroubleshootOutlinedIcon from '@mui/icons-material/TroubleshootOutlined'
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken'
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 
 //? SWEET ALERT
 import Swal from 'sweetalert2'
@@ -27,6 +27,7 @@ const CollectionPhotoCard = ({
   likes,
   downloadLink,
   customDescription,
+  downloadLocationLink,
 }) => {
   const dispatch = useDispatch()
 
@@ -41,9 +42,11 @@ const CollectionPhotoCard = ({
       : setFetchDescription('This image do not have a description yet')
   }, [customDescription, altDescription, description])
 
+  const [urlToDownload, setUrlToDOwnload] = useState('')
+
   const downloadPhoto = () => {
     Swal.fire({
-      position: 'bottom-end',
+      position: 'top-end',
       icon: 'info',
       text: 'Downloading',
       width: 'auto',
@@ -53,15 +56,7 @@ const CollectionPhotoCard = ({
       timerProgressBar: 1000,
       backdrop: false,
     })
-    const fileName = description
-    const aTag = document.createElement('a')
-    aTag.href = downloadLink
-      .split('?')[0]
-      .concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)
-    aTag.setAttribute('download', fileName)
-    document.body.appendChild(aTag)
-    aTag.click()
-    aTag.remove()
+    return setUrlToDOwnload(downloadLink)
   }
 
   const handleToRemoveFromCollection = () => {
@@ -103,25 +98,31 @@ const CollectionPhotoCard = ({
           </section>
           <section className='action-span-collection'>
             <span className='download-collection'>
-              <DownloadForOfflineIcon
+              <Link
+                href={urlToDownload}
+                underline='none'
+                color='inherit'
                 onClick={downloadPhoto}
-                fontSize='large'
-                sx={{ color: '#4966A6' }}
-              />
+              >
+                <FileDownloadOutlinedIcon
+                  fontSize='large'
+                  sx={{ color: '#7d4aa9' }}
+                />
+              </Link>
             </span>
             <span className='fav-icon-collection'>
               <HeartBrokenIcon
                 onClick={handleToRemoveFromCollection}
                 className='heart-icon-liked-collection'
                 fontSize='large'
-                sx={{ color: '#B65F9F', '&:hover': { color: '#4966A6' } }}
+                sx={{ color: '#7d4aa999', '&:hover': { color: '#7d4aa975' } }}
               />
             </span>
             <span className='full-screen-collection'>
-              <InfoRoundedIcon
+              <TroubleshootOutlinedIcon
                 onClick={handleOpen}
                 fontSize='large'
-                sx={{ color: '#4966A6' }}
+                sx={{ color: '#7d4aa9' }}
               />
             </span>
           </section>

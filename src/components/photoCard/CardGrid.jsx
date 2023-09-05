@@ -69,7 +69,11 @@ const CardGrid = () => {
                     photo={e.uriMedium}
                     likes={e.likes}
                     downloadLink={e.download}
+                    downloadLocationLink={e.downloadLocationLink}
                     key={i}
+                    userName={e.userName}
+                    downloads={e.downloads}
+                    views={e.views}
                   />
                 ))
               : fetchSearchedPicsByUserInput.map((e, i) => (
@@ -84,7 +88,11 @@ const CardGrid = () => {
                     photo={e.uriMedium}
                     likes={e.likes}
                     downloadLink={e.download}
+                    downloadLocationLink={e.downloadLocationLink}
                     key={i}
+                    userName={e.userName}
+                    downloads={e.downloads}
+                    views={e.views}
                   />
                 ))}
           </div>

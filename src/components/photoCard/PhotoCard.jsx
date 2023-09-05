@@ -8,10 +8,10 @@ import { removeThisPhotoFromHome } from '../../features/search/searchSlice'
 import { fetch1Pic } from '../../features/search/searchThunks'
 
 //? MUI COMPONENTS
-import { Box, Grid, Modal, Stack } from '@mui/material'
-import DownloadForOfflineIcon from '@mui/icons-material/DownloadForOffline'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import OpenInFullIcon from '@mui/icons-material/OpenInFull'
+import { Box, Grid, Link, Modal, Stack } from '@mui/material'
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
+import CropSquareOutlinedIcon from '@mui/icons-material/CropSquareOutlined'
 
 //? SWEET ALERT
 import Swal from 'sweetalert2'
@@ -27,12 +27,18 @@ const PhotoCard = ({
   photo,
   likes,
   downloadLink,
+  downloadLocationLink,
+  userName,
+  downloads,
+  views,
 }) => {
   const dispatch = useDispatch()
 
+  const [urlToDownload, setUrlToDOwnload] = useState('')
+
   const downloadPhoto = () => {
     Swal.fire({
-      position: 'bottom-end',
+      position: 'top-end',
       icon: 'info',
       text: 'Downloading',
       width: 'auto',
@@ -42,15 +48,7 @@ const PhotoCard = ({
       timerProgressBar: 1000,
       backdrop: false,
     })
-    const fileName = description
-    const aTag = document.createElement('a')
-    aTag.href = downloadLink
-      .split('?')[0]
-      .concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)
-    aTag.setAttribute('download', fileName)
-    document.body.appendChild(aTag)
-    aTag.click()
-    aTag.remove()
+    return setUrlToDOwnload(downloadLink)
   }
 
   const handleSave2Collection = () => {
@@ -66,6 +64,7 @@ const PhotoCard = ({
       photo: photo,
       likes: likes,
       downloadLink: downloadLink,
+      downloadLocationLink: downloadLocationLink,
     }
     Swal.fire({
       position: 'bottom-end',
@@ -85,16 +84,6 @@ const PhotoCard = ({
     }, 500)
   }
 
-  const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '100vw',
-    maxWidth: '90%',
-    maxHeight: '90%',
-  }
-
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -102,30 +91,64 @@ const PhotoCard = ({
   return (
     <>
       <Stack className='photo-card'>
-        <section></section>
+        <section className='photo-info-home'>
+          <p>
+            Photo by{' '}
+            <Link
+              color={{ color: 'rgb(49, 49, 49)' }}
+              underline='hover'
+              href={
+                'https://unsplash.com/@' +
+                userName +
+                '?utm_source=your_app_name&utm_medium=referral'
+              }
+            >
+              {userName}
+            </Link>{' '}
+            on{' '}
+            <Link
+              color={{ color: 'rgb(49, 49, 49)' }}
+              underline='hover'
+              href='https://unsplash.com/?utm_source=OxygenAcademyPhotoApp&utm_medium=referral'
+            >
+              Unsplash
+            </Link>
+          </p>
+        </section>
         <section className='imagen-section'>
           <img src={photo} alt='' onClick={handleOpen} />
         </section>
+        <section className='photo-info-home'>
+          <p>
+            Views: {views} || Downloads: {downloads}
+          </p>
+        </section>
         <section className='action-span'>
           <span className='download'>
-            <DownloadForOfflineIcon
+            <Link
+              href={urlToDownload}
+              underline='none'
+              color='inherit'
               onClick={downloadPhoto}
-              fontSize='large'
-              sx={{ color: '#4966A6' }}
-            />
+            >
+              <FileDownloadOutlinedIcon
+                fontSize='large'
+                sx={{ color: '#7d4aa9' }}
+              />
+            </Link>
           </span>
           <span className='fav-icon'>
-            <FavoriteIcon
+            <FavoriteBorderOutlinedIcon
               onClick={handleSave2Collection}
               className='heart-icon-liked'
               fontSize='large'
-              sx={{ color: '#4966A6' }}
+              sx={{ color: '#7d4aa9' }}
             />
           </span>
           <span className='full-screen'>
-            <OpenInFullIcon
+            <CropSquareOutlinedIcon
               fontSize='large'
-              sx={{ color: '#4966A6' }}
+              sx={{ color: '#7d4aa9' }}
               onClick={handleOpen}
             />
           </span>
@@ -160,3 +183,13 @@ const PhotoCard = ({
 }
 
 export default PhotoCard
+
+const modalStyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '100vw',
+  maxWidth: '90%',
+  maxHeight: '90%',
+}
