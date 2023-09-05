@@ -16,36 +16,10 @@ const SearchBar = ({ isMobile }) => {
   const dispatch = useDispatch()
   const [userInput, setUserInput] = useState(' ')
   const [inputChecked, setInputChecked] = useState(' ')
-  const [latestInput, setLatestInput] = useState(' ')
+
   const requestStatus = useSelector(selectInputStatus)
-
-  const keypress = (e, str) => {
-    console.log(str)
-    let currentValue = e.target.value
-    if (e.keyCode === 13) {
-      if (currentValue === '') {
-        setUserInput('Empty input!!')
-      } else {
-        dispatch(findPicsByUserInput(currentValue))
-        if (inputChecked === 'rejected' && latestInput !== e.target.value) {
-          Swal.fire({
-            position: 'top',
-            icon: 'error',
-            text: `We cound't find what you are looking for... please try again`,
-            width: 'auto',
-            heightAuto: true,
-            showConfirmButton: false,
-            timer: 1000,
-            timerProgressBar: 1000,
-            backdrop: true,
-          })
-          setLatestInput(e.target.value)
-        }
-      }
-    }
-  }
-
   const searchedInput = useSelector((state) => state.browsedImages.search.input)
+
   useEffect(() => {
     if (requestStatus === 'rejected') {
       setInputChecked('rejected')
@@ -59,6 +33,27 @@ const SearchBar = ({ isMobile }) => {
       setUserInput('e.g: Black cat')
     }
   }, [searchedInput, requestStatus])
+
+  const keypress = (e) => {
+    let currentValue = e.target.value
+    if (e.keyCode === 13) {
+      dispatch(findPicsByUserInput(currentValue))
+      if (inputChecked === 'rejected') {
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          text: `We cound't find what you are looking for... please try again`,
+          width: 'auto',
+          heightAuto: true,
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: 1000,
+          backdrop: true,
+        })
+        setInputChecked(' ')
+      }
+    }
+  }
 
   return (
     <>
