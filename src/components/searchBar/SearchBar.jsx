@@ -6,34 +6,44 @@ import { findPicsByUserInput } from '../../features/search/searchThunks'
 import { selectInputStatus } from '../../features/search/searchSlice'
 
 //? MUI COMPONENTS
-import { TextField } from '@mui/material'
+import { Divider, IconButton, InputAdornment, TextField } from '@mui/material'
+import SearchIcon from '@mui/icons-material/Search'
 
 //? SWEET ALERT
 import Swal from 'sweetalert2'
 
 const SearchBar = ({ isMobile }) => {
   const dispatch = useDispatch()
-  const keypress = (e) => {
+  const [userInput, setUserInput] = useState(' ')
+  const [inputChecked, setInputChecked] = useState(' ')
+  const [latestInput, setLatestInput] = useState(' ')
+  const requestStatus = useSelector(selectInputStatus)
+
+  const keypress = (e, str) => {
+    console.log(str)
+    let currentValue = e.target.value
     if (e.keyCode === 13) {
-      dispatch(findPicsByUserInput(e.target.value))
-      if (inputChecked === 'rejected') {
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          text: `We cound't find what you are looking for... please try again`,
-          width: 'auto',
-          heightAuto: true,
-          showConfirmButton: false,
-          timer: 1000,
-          timerProgressBar: 1000,
-          backdrop: true,
-        })
+      if (currentValue === '') {
+        setUserInput('Empty input!!')
+      } else {
+        dispatch(findPicsByUserInput(currentValue))
+        if (inputChecked === 'rejected' && latestInput !== e.target.value) {
+          Swal.fire({
+            position: 'top',
+            icon: 'error',
+            text: `We cound't find what you are looking for... please try again`,
+            width: 'auto',
+            heightAuto: true,
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: 1000,
+            backdrop: true,
+          })
+          setLatestInput(e.target.value)
+        }
       }
     }
   }
-  const [userInput, setUserInput] = useState(' ')
-  const [inputChecked, setInputChecked] = useState('')
-  const requestStatus = useSelector(selectInputStatus)
 
   const searchedInput = useSelector((state) => state.browsedImages.search.input)
   useEffect(() => {
@@ -46,13 +56,28 @@ const SearchBar = ({ isMobile }) => {
     if (searchedInput.length !== 0) {
       setUserInput(searchedInput)
     } else {
-      setUserInput()
+      setUserInput('e.g: Black cat')
     }
   }, [searchedInput, requestStatus])
 
   return (
     <>
       <TextField
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <Divider sx={{ height: 28, m: 1 }} orientation='vertical' />
+              <IconButton
+                type='button'
+                sx={{ p: '10px' }}
+                aria-label='search'
+                onClick={() => {}}
+              >
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
         size={isMobile ? 'small' : 'regular'}
         placeholder={userInput}
         id='outlined-basic'

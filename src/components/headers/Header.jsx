@@ -48,7 +48,7 @@ const Header = ({ chips, button, mobile }) => {
         >
           <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
           {/* LOGO */}
-          <Grid item xs={9} sm={0} md={3} xl={3}>
+          <Grid item xs={9} sm={0} md={1} xl={1}>
             <Link className='logo-img' to='../'>
               <img src={require('../../assets/images/logo.png')} alt='logo' />
             </Link>
