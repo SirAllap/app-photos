@@ -43,7 +43,7 @@ export const fetchInitialPics = createAsyncThunk(
                     uriMedium: e.urls.regular,
                     uriBig: e.urls.full,
                     likes: e.likes,
-                    download: (e.links.download.split('?')[0].concat(`?force=true?ixit=${process.env.REACT_APP_ACCESS_KEY}`)),
+                    download: (e.links.download.split('?')[0].concat(`?ixid=${process.env.REACT_APP_ACCESS_KEY}`)),
                     userName: e.user.name,
                     downloads: e.downloads,
                     views: e.views,
@@ -51,7 +51,6 @@ export const fetchInitialPics = createAsyncThunk(
             })
             return fetchDataFromPics
         } catch (error) {
-            console.log('Log ERROR: ' + error)
             throw new Error(`We could not fetch the initial photos ${error.message}`)
         }
     }
@@ -88,7 +87,6 @@ export const fetch1Pic = createAsyncThunk(
             })
             return fetchDataFromThePic[0]
         } catch (error) {
-            console.log('Log ERROR: ' + error)
             throw new Error(`We could not fetch 1 photo ${error.message}`)
         }
     }
@@ -98,7 +96,6 @@ export const findPicsByUserInput = createAsyncThunk(
     'browsedImages/findPicsByUserInput',
     async (userInput) => {
         try {
-
             let search = []
             search = await axios(
                 URL.baseURL + URL.urlSearchParameter.urlParam + userInput + URL.clientID
@@ -125,7 +122,6 @@ export const findPicsByUserInput = createAsyncThunk(
             })
             return fetchDataFromSearchedPic
         } catch (error) {
-            console.log('Log ERROR: ' + error)
             throw new Error(`We could not search by that input ${error.message}`)
         }
     }

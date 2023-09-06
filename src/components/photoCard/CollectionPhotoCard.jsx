@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import './collectionPhotoCard.css'
-
-//? ACTIONS
 import { removeThisPhotoFromCollection } from '../../features/favourites/favouritesSlice'
 import { manageModalView } from '../../features/favourites/favouritesSlice'
-
-//? MUI COMPONENTS
 import { Link, Stack } from '@mui/material'
 import TroubleshootOutlinedIcon from '@mui/icons-material/TroubleshootOutlined'
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken'
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
-
-//? SWEET ALERT
 import Swal from 'sweetalert2'
 
 const CollectionPhotoCard = ({
@@ -80,7 +74,6 @@ const CollectionPhotoCard = ({
     })
   }
 
-  // This handle the open of the collection modal
   const handleOpen = () => {
     dispatch(manageModalView(id, true))
   }

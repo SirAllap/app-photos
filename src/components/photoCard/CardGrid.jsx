@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './cardGrid.css'
-
-//? COMPONENTS
 import PhotoCard from './PhotoCard'
 import Intro from '../intro/Intro'
-
-//? SELECTORS
 import {
   initialPhotos,
   selectStatus,
   searchedPicsByUserInput,
 } from '../../features/search/searchSlice'
-
-//? MUI COMPONENTS
 import { LinearProgress } from '@mui/material'
-
-//? SWEET ALERT
 import Swal from 'sweetalert2'
 
 const CardGrid = () => {
@@ -28,11 +20,7 @@ const CardGrid = () => {
   useEffect(() => {
     if (fetchStatus === 'rejected') {
       setPhotoList('rejected')
-    }
-    // else if (fetchStatus === 'pending') {
-    //   setPhotoList('pending')
-    // }
-    else if (fetchStatus === 'fulfilled') {
+    } else if (fetchStatus === 'fulfilled') {
       setPhotoList('fulfilled')
     }
   }, [fetchStatus])

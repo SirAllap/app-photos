@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import './collectionCardGrid.css'
-
-//? COMPONENTS
 import CollectionPhotoCard from './CollectionPhotoCard'
 import CollectionModal from '../modal/CollectionModal'
-
-//? ACTIONS
 import { savedPhotos } from '../../features/favourites/favouritesSlice'
-
-//? MUI COMPONENTS
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 

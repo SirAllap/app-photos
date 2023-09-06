@@ -1,7 +1,5 @@
 import React from 'react'
 import './footer.css'
-
-//? MUI COMPONENTS
 import GitHubIcon from '@mui/icons-material/GitHub'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Link, Typography, Stack } from '@mui/material'

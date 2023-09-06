@@ -2,15 +2,9 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import './header.css'
-
-//? COMPONENTS
 import SearchBar from '../searchBar/SearchBar'
 import Chips from '../chips/Chips'
-
-//? SELECTORS
 import { savedPhotos } from '../../features/favourites/favouritesSlice'
-
-//? MUI COMPONENTS
 import {
   AppBar,
   Badge,

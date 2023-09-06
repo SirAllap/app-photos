@@ -1,10 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-
-//? ACTIONS
 import { findPicsByUserInput } from '../../features/search/searchThunks'
-
-//? MUI COMPONENTS
 import { Chip, Stack } from '@mui/material'
 
 const Chips = () => {

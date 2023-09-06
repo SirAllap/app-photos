@@ -12,14 +12,6 @@ const initialState = {
   error: 'null',
 }
 
-
-export const removeThisPhotoFromHome = (dataFromImg) => {
-  return {
-    type: 'browsedImages/removeLikedPic',
-    payload: { dataFromImg },
-  }
-}
-
 export const searchSlice = createSlice({
   name: 'browsedImages',
   initialState,
@@ -37,6 +29,10 @@ export const searchSlice = createSlice({
         state.search.pics = result
       }
     },
+    clearSavedPicsByInput: (state, action) => {
+      state.search.pics = []
+      state.search.input = []
+    }
   },
   extraReducers(builder) {
     builder
@@ -85,8 +81,9 @@ export const searchSlice = createSlice({
 
 export default searchSlice.reducer
 
+export const { removeLikedPic, clearSavedPicsByInput } = searchSlice.actions
+
 export const initialPhotos = (state) => state.browsedImages.initialFetch
-export const searchedPicsByUserInput = (state) =>
-  state.browsedImages.search.pics
+export const searchedPicsByUserInput = (state) => state.browsedImages.search.pics
 export const selectStatus = (state) => state.browsedImages.status
 export const selectInputStatus = (state) => state.browsedImages.inputStatus

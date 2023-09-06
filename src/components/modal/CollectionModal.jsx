@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './collectionModal.css'
-
-//? ACTIONS
 import {
   currentPhotoOfTheModal,
   manageModalView,
   manageNewDescription,
   modalViewState,
 } from '../../features/favourites/favouritesSlice'
-
-//? MUI COMPONENTS
 import {
   Avatar,
   Box,
@@ -31,16 +27,11 @@ import SaveAsIcon from '@mui/icons-material/SaveAs'
 
 const CollectionModal = () => {
   const dispatch = useDispatch()
-
-  //? STATES
   const [editDescription, setEditDescription] = useState('')
   const [fetchDescription, setFetchDescription] = useState('')
   const [inputState, setInputState] = useState(true)
-
-  //? SELECTORS
   const modalViewCollection = useSelector(modalViewState)
   const modalCurrentPhotoOfTheModal = useSelector(currentPhotoOfTheModal)
-
   const description = modalCurrentPhotoOfTheModal.description
   const altDescription = modalCurrentPhotoOfTheModal.altDescription
   const id = modalCurrentPhotoOfTheModal.id
@@ -72,9 +63,8 @@ const CollectionModal = () => {
     dispatch(manageNewDescription(id, editDescription))
   }
 
-  //? This handle the close of the collection modal
   const handleClose = () => {
-    dispatch(manageModalView(false))
+    dispatch(manageModalView(null, false))
   }
 
   return (

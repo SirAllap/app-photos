@@ -1,83 +1,60 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-//? ACTIONS + SELECTORS
 import { findPicsByUserInput } from '../../features/search/searchThunks'
-import { selectInputStatus } from '../../features/search/searchSlice'
-
-//? MUI COMPONENTS
+import { clearSavedPicsByInput } from '../../features/search/searchSlice'
 import { Divider, IconButton, InputAdornment, TextField } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
-
-//? SWEET ALERT
-import Swal from 'sweetalert2'
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 
 const SearchBar = ({ isMobile }) => {
   const dispatch = useDispatch()
-  const [userInput, setUserInput] = useState(' ')
-  const [inputChecked, setInputChecked] = useState(' ')
+  const [currentInput, setCurrentInput] = useState(' ')
+  const [userInput, setUserInput] = useState('')
 
-  const requestStatus = useSelector(selectInputStatus)
   const searchedInput = useSelector((state) => state.browsedImages.search.input)
 
   useEffect(() => {
-    if (requestStatus === 'rejected') {
-      setInputChecked('rejected')
-    } else if (requestStatus === 'fulfilled') {
-      setInputChecked('fulfilled')
-    }
-
     if (searchedInput.length !== 0) {
       setUserInput(searchedInput)
     } else {
       setUserInput('e.g: Black cat')
     }
-  }, [searchedInput, requestStatus])
+  }, [searchedInput])
 
-  const keypress = (e) => {
-    let currentValue = e.target.value
-    if (e.keyCode === 13) {
-      dispatch(findPicsByUserInput(currentValue))
-      if (inputChecked === 'rejected') {
-        Swal.fire({
-          position: 'top',
-          icon: 'error',
-          text: `We cound't find what you are looking for... please try again`,
-          width: 'auto',
-          heightAuto: true,
-          showConfirmButton: false,
-          timer: 1000,
-          timerProgressBar: 1000,
-          backdrop: true,
-        })
-        setInputChecked(' ')
-      }
+  const clearInput = () => {
+    if (currentInput.text !== ' ') {
+      setCurrentInput({ text: ' ' })
+      dispatch(clearSavedPicsByInput())
+    }
+  }
+
+  const handleSearch = (event) => {
+    if (
+      currentInput.text === '' ||
+      currentInput.text === undefined ||
+      currentInput.text === null
+    ) {
+      dispatch(clearSavedPicsByInput())
+    } else {
+      dispatch(findPicsByUserInput(currentInput.text))
     }
   }
 
   return (
     <>
       <TextField
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position='end'>
-              <Divider sx={{ height: 28, m: 1 }} orientation='vertical' />
-              <IconButton
-                type='button'
-                sx={{ p: '10px' }}
-                aria-label='search'
-                onClick={() => {}}
-              >
-                <SearchIcon />
-              </IconButton>
-            </InputAdornment>
-          ),
+        value={currentInput.text === '' ? null : currentInput.text}
+        placeholder={userInput}
+        onChange={(event) => {
+          setCurrentInput({ text: event.target.value })
         }}
         size={isMobile ? 'small' : 'regular'}
-        placeholder={userInput}
         id='outlined-basic'
         variant='outlined'
-        onKeyDown={keypress}
+        onKeyDown={(event) => {
+          event.keyCode === 13 &&
+            dispatch(findPicsByUserInput(currentInput.text))
+        }}
         style={{ color: '#4966A6' }}
         color='primary'
         sx={{
@@ -86,6 +63,23 @@ const SearchBar = ({ isMobile }) => {
           marginRight: 0,
           marginTop: 1,
           marginBottom: 1,
+        }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position='end'>
+              <IconButton type='button' sx={{ p: '10px' }} onClick={clearInput}>
+                <CancelOutlinedIcon />
+              </IconButton>
+              <Divider sx={{ height: 28, m: 1 }} orientation='vertical' />
+              <IconButton
+                type='button'
+                sx={{ p: '10px' }}
+                onClick={handleSearch}
+              >
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
         }}
       />
     </>

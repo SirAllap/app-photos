@@ -1,19 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import './photoCard.css'
-
-//? ACTIONS
 import { saveThisPhotoToCollection } from '../../features/favourites/favouritesSlice'
-import { removeThisPhotoFromHome } from '../../features/search/searchSlice'
+import { removeLikedPic } from '../../features/search/searchSlice'
 import { fetch1Pic } from '../../features/search/searchThunks'
-
-//? MUI COMPONENTS
 import { Box, Grid, Link, Modal, Stack } from '@mui/material'
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import CropSquareOutlinedIcon from '@mui/icons-material/CropSquareOutlined'
-
-//? SWEET ALERT
 import Swal from 'sweetalert2'
 
 const PhotoCard = ({
@@ -80,7 +74,7 @@ const PhotoCard = ({
     setTimeout(() => {
       dispatch(saveThisPhotoToCollection(imgData))
       dispatch(fetch1Pic())
-      dispatch(removeThisPhotoFromHome(id))
+      dispatch(removeLikedPic(id))
     }, 500)
   }
 
@@ -119,9 +113,11 @@ const PhotoCard = ({
           <img src={photo} alt='' onClick={handleOpen} />
         </section>
         <section className='photo-info-home'>
-          <p>
-            Views: {views} || Downloads: {downloads}
-          </p>
+          {views && downloads && (
+            <p>
+              Views: {views} || Downloads: {downloads}
+            </p>
+          )}
         </section>
         <section className='action-span'>
           <span className='download'>
