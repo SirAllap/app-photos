@@ -1,17 +1,13 @@
-import { Chip, Stack } from '@mui/material'
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { findPicsByUserInput } from '../../features/search/searchSlice'
-import DeleteIcon from '@mui/icons-material/Delete'
+import { findPicsByUserInput } from '../../features/search/searchThunks'
+import { Chip, Stack } from '@mui/material'
 
 const Chips = () => {
   const dispatch = useDispatch()
   const handleClick = (e) => {
     dispatch(findPicsByUserInput(e.currentTarget.innerText))
   }
-  // const handleClick2Clear = () => {
-  //   dispatch(findPicsByUserInput(' '))
-  // }
 
   return (
     <>
@@ -23,9 +19,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
-          color='primary'
+          style={{ color: '#9d81b6' }}
           variant='outlined'
           label='Dog'
           onClick={handleClick}
@@ -37,8 +34,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='One Piece'
@@ -51,8 +50,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Rock'
@@ -65,8 +66,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Ice'
@@ -79,8 +82,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Keyboard'
@@ -93,8 +98,10 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='React'
@@ -107,26 +114,15 @@ const Chips = () => {
             width: '100px',
             borderRadius: '4px',
             fontWeight: 'bold',
+            borderColor: '#9d81b685',
+            backgroundColor: '#9d81b615',
           }}
-          style={{ color: '#4966A6' }}
+          style={{ color: '#9d81b6' }}
           color='primary'
           variant='outlined'
           label='Hate'
           onClick={handleClick}
         />
-        {/* <Chip
-          sx={{
-            marginTop: '10px',
-            height: '36px',
-            borderRadius: '4px',
-            fontWeight: 'bold',
-          }}
-          style={{ color: '#374750' }}
-          variant='outlined'
-          label='CLEAR'
-          onClick={handleClick2Clear}
-          icon={<DeleteIcon />}
-        /> */}
       </Stack>
     </>
   )

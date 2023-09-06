@@ -1,3 +1,19 @@
+.swal2-container {
+  z-index: 20000 !important;
+}
+
+.photo-info-home {
+  text-align: right;
+  color: rgb(49, 49, 49);
+  font-weight: 600;
+}
+
+.photo-info-home p {
+  color: rgb(49, 49, 49);
+  margin: 5px 5px 5px 0;
+  font-size: small;
+}
+
 .photo-card {
   display: flex;
   justify-content: space-between;
@@ -17,13 +33,16 @@
   margin: auto auto;
   border-radius: 4px;
   height: 370px;
-  width: 98%;
+  width: 100%;
   object-fit: cover;
   transition: 0.3s;
+  filter: grayscale(55%);
 }
 .imagen-section img:hover {
-  cursor: zoom-in;
+  cursor: pointer;
   transform: scale(1.02);
+
+  filter: grayscale(0%);
 }
 
 .action-span {
@@ -118,11 +137,6 @@
   }
 }
 
-/* .modal-imagen-section {
-  display: flex;
-  flex-direction: column;
-} */
-
 .modal-imagen-section img {
   display: flex;
   flex-direction: column;
@@ -160,5 +174,9 @@
     height: 25vh;
     object-fit: cover;
     transition: 0.3s;
+    filter: grayscale(0%);
+  }
+  .imagen-section img:hover {
+    filter: grayscale(0%);
   }
 }

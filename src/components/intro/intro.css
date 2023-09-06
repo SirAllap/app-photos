@@ -7,7 +7,7 @@
 h2 {
   margin: auto;
   width: fit-content;
-  max-width: 70vw;
+
   margin-top: 30px;
   text-align: justify;
   text-justify: inter-word;
@@ -26,8 +26,9 @@ h2 {
 @media only screen and (max-width: 900px) {
   h2 {
     font-size: 1.1rem;
-    margin: auto;
     width: 100%;
+    max-width: 90vw;
+    margin: auto;
     text-align: justify;
     text-justify: inter-word;
     line-height: 2.4rem;

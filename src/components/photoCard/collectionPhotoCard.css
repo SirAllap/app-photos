@@ -1,3 +1,7 @@
+.swal2-container {
+  z-index: 20000 !important;
+}
+
 .photo-card-collection {
   display: flex;
   justify-content: space-between;
@@ -51,16 +55,6 @@
 }
 .action-span-collection span:hover {
   transform: scale(1.2);
-}
-
-.modal-imagen-collection-section img {
-  padding: auto;
-  margin: auto;
-  border-radius: 4px;
-  max-height: 70vh;
-  max-width: 100%;
-  object-fit: contain;
-  transition: 0.3s;
 }
 
 @media only screen and (max-width: 900px) {
