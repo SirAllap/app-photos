@@ -5,21 +5,21 @@ const initialState = {
   setModalView: false,
   photoOfCurrentViewModal: [],
 }
-
 export const favouriteSlice = createSlice({
   name: 'favouritesPhotos',
   initialState,
   reducers: {
     saveThisPhotoToCollection: (state, action) => {
-      state.savedPhotos.push(action.payload.dataFromImg)
+      state.savedPhotos.push(action.payload)
     },
     removeThisPhotoFromCollection: (state, action) => {
       const result = state.savedPhotos.filter(
-        (e) => e.id !== action.payload.dataFromImg
+        (e) => e.id !== action.payload
       )
       state.savedPhotos = result
     },
     manageModalView: (state, action) => {
+      console.log(action)
       const { id, bol } = action.payload
       if (bol === true) {
         let photo4Modal = state.savedPhotos.filter((e) => {

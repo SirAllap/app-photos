@@ -17,14 +17,14 @@ export const searchSlice = createSlice({
   initialState,
   reducers: {
     removeLikedPic: (state, action) => {
-      if (state.initialFetch.some((e) => e.id === action.payload.dataFromImg)) {
+      if (state.initialFetch.some((e) => e.id === action.payload)) {
         const result = state.initialFetch.filter(
-          (e) => e.id !== action.payload.dataFromImg
+          (e) => e.id !== action.payload
         )
         state.initialFetch = result
       } else {
         const result = state.search.pics.filter(
-          (e) => e.id !== action.payload.dataFromImg
+          (e) => e.id !== action.payload
         )
         state.search.pics = result
       }

@@ -60,11 +60,11 @@ const CollectionModal = () => {
   const handleClickAndSave = (e) => {
     setInputState(true)
     setFetchDescription(editDescription)
-    dispatch(manageNewDescription(id, editDescription))
+    dispatch(manageNewDescription({ id: id, str: editDescription }))
   }
 
   const handleClose = () => {
-    dispatch(manageModalView(null, false))
+    dispatch(manageModalView({ id: null, bol: false }))
   }
 
   return (

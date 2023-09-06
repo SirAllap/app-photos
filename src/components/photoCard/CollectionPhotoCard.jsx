@@ -75,7 +75,7 @@ const CollectionPhotoCard = ({
   }
 
   const handleOpen = () => {
-    dispatch(manageModalView(id, true))
+    dispatch(manageModalView({ id: id, bol: true }))
   }
 
   return (

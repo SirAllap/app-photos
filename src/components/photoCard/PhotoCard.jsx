@@ -71,6 +71,7 @@ const PhotoCard = ({
       timerProgressBar: 1000,
       backdrop: false,
     })
+
     setTimeout(() => {
       dispatch(saveThisPhotoToCollection(imgData))
       dispatch(fetch1Pic())
@@ -94,7 +95,7 @@ const PhotoCard = ({
               href={
                 'https://unsplash.com/@' +
                 userName +
-                '?utm_source=your_app_name&utm_medium=referral'
+                '?utm_source=OxygenAcademyPhotoApp&utm_medium=referral'
               }
             >
               {userName}
@@ -110,7 +111,7 @@ const PhotoCard = ({
           </p>
         </section>
         <section className='imagen-section'>
-          <img src={photo} alt='' onClick={handleOpen} />
+          <img src={photo} alt={`Owner: ${userName}`} onClick={handleOpen} />
         </section>
         <section className='photo-info-home'>
           {views && downloads && (
