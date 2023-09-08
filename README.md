@@ -2,6 +2,8 @@
 
 I built this web application using React and various related technologies. Before I dive into the implementation, I had to follow a structured set of steps and considerations to ensure a smooth and efficient development process.
 
+[GH-PAGES-LINK](https://sirallap.github.io/app-photos/)
+
 ## Table of Contents
 
 1. [Designing the App in Figma Before Writing Code](#1-designing-the-app-in-figma-before-writing-code)
