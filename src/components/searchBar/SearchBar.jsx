@@ -79,7 +79,6 @@ const SearchBar = ({ isMobile }) => {
             if (event.keyCode === 13) {
               event.preventDefault()
               dispatch(findPicsByUserInput(currentInput.text))
-              console.log('im here')
             }
           }}
           style={{ color: '#4966A6' }}

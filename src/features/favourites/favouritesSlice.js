@@ -19,7 +19,6 @@ export const favouriteSlice = createSlice({
       state.savedPhotos = result
     },
     manageModalView: (state, action) => {
-      console.log(action)
       const { id, bol } = action.payload
       if (bol === true) {
         let photo4Modal = state.savedPhotos.filter((e) => {
