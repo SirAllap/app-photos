@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import './collectionPhotoCard.css'
 import { removeThisPhotoFromCollection } from '../../features/favourites/favouritesSlice'
 import { manageModalView } from '../../features/favourites/favouritesSlice'
-import { Link, Stack } from '@mui/material'
+import { Link, Stack, Typography } from '@mui/material'
 import TroubleshootOutlinedIcon from '@mui/icons-material/TroubleshootOutlined'
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken'
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
@@ -83,11 +83,25 @@ const CollectionPhotoCard = ({
       <Stack useFlexGap={true} sx={{ mb: 2 }} className='photo-card-collection'>
         <section className='card-items-collection'>
           <section className='imagen-section-collection'>
-            <p>{width + ' x ' + height}</p>
+            <Typography
+              align='justify'
+              variant='p'
+              component='p'
+              sx={{ ml: 2, mr: 2, mt: 0.5, mb: 1 }}
+            >
+              {width + ' x ' + height}
+            </Typography>
 
             <img src={photo} alt='' onClick={handleOpen} />
 
-            <p>{fetchDescription}</p>
+            <Typography
+              align='justify'
+              variant='p'
+              component='p'
+              sx={{ ml: 2, mr: 2, mt: 1 }}
+            >
+              {fetchDescription}
+            </Typography>
           </section>
           <section className='action-span-collection'>
             <span className='download-collection'>
