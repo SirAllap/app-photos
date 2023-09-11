@@ -27,9 +27,7 @@ import SaveAsIcon from '@mui/icons-material/SaveAs'
 
 const CollectionModal = () => {
   const dispatch = useDispatch()
-  const [editDescription, setEditDescription] = useState('')
-  const [customDescription, setCustomDescription] = useState('')
-  const [fetchDescription, setFetchDescription] = useState('')
+  const [currentEditDescription, setCurrentEditDescription] = useState('')
   const [inputState, setInputState] = useState(true)
   const modalViewCollection = useSelector(modalViewState)
   const modalCurrentPhotoOfTheModal = useSelector(currentPhotoOfTheModal)
@@ -40,38 +38,17 @@ const CollectionModal = () => {
   const id = modalCurrentPhotoOfTheModal.id
 
   useEffect(() => {
-    customDescriptionFromTheImage &&
-      setCustomDescription(customDescriptionFromTheImage)
-    if (editDescription !== '') {
-      setFetchDescription(editDescription)
-    } else if (editDescription === '' && description !== null) {
-      setFetchDescription(description)
-    } else if (
-      editDescription === '' &&
-      description === null &&
-      altDescription !== null
-    ) {
-      setFetchDescription(altDescription)
-    } else {
-      setFetchDescription('This image do not have a description yet')
-    }
-  }, [
-    modalViewCollection,
-    editDescription,
-    altDescription,
-    description,
-    customDescriptionFromTheImage,
-  ])
+    setCurrentEditDescription(customDescriptionFromTheImage)
+  }, [customDescriptionFromTheImage])
 
   const inputOnChange = (e) => {
     setInputState(false)
-    setEditDescription(e.target.value)
+    setCurrentEditDescription(e.target.value)
   }
 
   const handleClickAndSave = (e) => {
     setInputState(true)
-    setFetchDescription(editDescription)
-    dispatch(manageNewDescription({ id: id, str: editDescription }))
+    dispatch(manageNewDescription({ id: id, str: currentEditDescription }))
   }
 
   const handleClose = () => {
@@ -130,7 +107,11 @@ const CollectionModal = () => {
 
                     <TextField
                       //? text edit input
-                      defaultValue={'Edit'}
+                      placeholder={
+                        !customDescriptionFromTheImage
+                          ? 'No custom description yet!'
+                          : customDescriptionFromTheImage
+                      }
                       hiddenLabel
                       fullWidth
                       onChange={inputOnChange}
@@ -138,11 +119,11 @@ const CollectionModal = () => {
                         if (event.keyCode === 13) {
                           event.preventDefault()
                           setInputState(true)
-                          setFetchDescription(editDescription)
+
                           dispatch(
                             manageNewDescription({
                               id: id,
-                              str: editDescription,
+                              str: currentEditDescription,
                             })
                           )
                         }
@@ -154,14 +135,14 @@ const CollectionModal = () => {
 
                   <ListItemText
                     secondary={
-                      customDescription
-                        ? `Custom: ${customDescription}`
-                        : `No custom description yet!`
+                      customDescriptionFromTheImage
+                        ? `Custom: ${customDescriptionFromTheImage}`
+                        : null
                     }
                   />
                   <ListItemText
                     secondary={`Original: ${
-                      !description ? altDescription : description
+                      description ? description : altDescription
                     }`}
                   />
                 </Grid>
