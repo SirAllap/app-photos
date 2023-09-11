@@ -12,8 +12,6 @@ import {
   Button,
   Avatar,
   useMediaQuery,
-  useScrollTrigger,
-  Slide,
 } from '@mui/material'
 import PermMediaOutlinedIcon from '@mui/icons-material/PermMediaOutlined'
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined'
@@ -27,151 +25,144 @@ const Header = ({ chips, button, mobile }) => {
     return favPics.length
   }
 
-  const triggerScroll = useScrollTrigger()
-  console.log(triggerScroll)
   return (
     <>
-      <Slide in={!triggerScroll}>
-        <AppBar
-          position='sticky'
-          top='0px'
-          style={{ background: 'rgba(255, 255, 255, 0.65)', boxShadow: 'none' }}
-          className='container'
+      <AppBar
+        position='sticky'
+        top='0px'
+        style={{ background: 'rgba(255, 255, 255, 0.65)', boxShadow: 'none' }}
+        className='container'
+      >
+        <Grid
+          container
+          spacing={0}
+          direction='row'
+          justifyContent='space-between'
+          alignItems='center'
         >
-          <Grid
-            container
-            spacing={0}
-            direction='row'
-            justifyContent='space-between'
-            alignItems='center'
-          >
-            <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
-            {/* LOGO */}
-            <Grid item xs={9} sm={0} md={1} xl={1}>
-              <Link className='logo-img' to='../'>
-                <img src={require('../../assets/images/logo.png')} alt='logo' />
-              </Link>
-            </Grid>
+          <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
+          {/* LOGO */}
+          <Grid item xs={9} sm={0} md={1} xl={1}>
+            <Link className='logo-img' to='../'>
+              <img src={require('../../assets/images/logo.png')} alt='logo' />
+            </Link>
+          </Grid>
 
-            {/* BUTTON-MOBILE */}
-            {matches && (
-              <Grid item xs={2} sm={0} md={3} xl={3}>
-                {button === 'collection' ? (
-                  <Link to='../collection'>
-                    {!favPics ? (
+          {/* BUTTON-MOBILE */}
+          {matches && (
+            <Grid item xs={2} sm={0} md={3} xl={3}>
+              {button === 'collection' ? (
+                <Link to='../collection'>
+                  {!favPics ? (
+                    <Avatar variant='rounded' sx={mobileMenuIcon}>
+                      <PermMediaOutlinedIcon
+                        sx={{ fontSize: 40 }}
+                        style={{ color: '#9d81b6' }}
+                      />
+                    </Avatar>
+                  ) : (
+                    <Badge badgeContent={numPicsOnColl()} color='secondary'>
                       <Avatar variant='rounded' sx={mobileMenuIcon}>
                         <PermMediaOutlinedIcon
                           sx={{ fontSize: 40 }}
                           style={{ color: '#9d81b6' }}
                         />
                       </Avatar>
-                    ) : (
-                      <Badge badgeContent={numPicsOnColl()} color='secondary'>
-                        <Avatar variant='rounded' sx={mobileMenuIcon}>
-                          <PermMediaOutlinedIcon
-                            sx={{ fontSize: 40 }}
-                            style={{ color: '#9d81b6' }}
-                          />
-                        </Avatar>
-                      </Badge>
-                    )}
-                  </Link>
-                ) : (
-                  <Link to='../'>
-                    <Avatar variant='rounded' sx={mobileMenuIcon}>
-                      <CottageOutlinedIcon
-                        sx={{ fontSize: 40 }}
-                        style={{ color: '#9d81b6' }}
-                      />
-                    </Avatar>
-                  </Link>
-                )}
-              </Grid>
-            )}
-            <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
+                    </Badge>
+                  )}
+                </Link>
+              ) : (
+                <Link to='../'>
+                  <Avatar variant='rounded' sx={mobileMenuIcon}>
+                    <CottageOutlinedIcon
+                      sx={{ fontSize: 40 }}
+                      style={{ color: '#9d81b6' }}
+                    />
+                  </Avatar>
+                </Link>
+              )}
+            </Grid>
+          )}
+          <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
 
-            {/* SEARCH BAR */}
-            {matches && button !== 'collection' ? null : matches ? (
-              <Grid item xs={12} sm={12} md={4} xl={6}>
-                <SearchBar matches={true} />
-              </Grid>
-            ) : (
-              <Grid item xs={12} sm={12} md={4} xl={6}>
-                <SearchBar matches={false} />
-              </Grid>
-            )}
+          {/* SEARCH BAR */}
+          {matches && button !== 'collection' ? null : matches ? (
+            <Grid item xs={12} sm={12} md={4} xl={6}>
+              <SearchBar matches={true} />
+            </Grid>
+          ) : (
+            <Grid item xs={12} sm={12} md={4} xl={6}>
+              <SearchBar matches={false} />
+            </Grid>
+          )}
 
-            {/* BUTTON */}
-            {!matches && (
-              <Grid item xs={1} sm={1} md={1} xl={1}>
-                {button === 'collection' ? (
-                  <Link to='../collection'>
-                    <Button
-                      sx={{
-                        height: '56px',
-                        fontWeight: 'bold',
-                        borderColor: '#9d81b6',
-                        backgroundColor: '#9d81b615',
-                      }}
-                      style={{ color: '#7d4aa9' }}
-                      color='secondary'
-                      variant='outlined'
-                      endIcon={
-                        !favPics ? (
+          {/* BUTTON */}
+          {!matches && (
+            <Grid item xs={1} sm={1} md={1} xl={1}>
+              {button === 'collection' ? (
+                <Link to='../collection'>
+                  <Button
+                    sx={{
+                      height: '56px',
+                      fontWeight: 'bold',
+                      borderColor: '#9d81b6',
+                      backgroundColor: '#9d81b615',
+                    }}
+                    style={{ color: '#7d4aa9' }}
+                    color='secondary'
+                    variant='outlined'
+                    endIcon={
+                      !favPics ? (
+                        <PermMediaOutlinedIcon />
+                      ) : (
+                        <Badge badgeContent={numPicsOnColl()} color='secondary'>
                           <PermMediaOutlinedIcon />
-                        ) : (
-                          <Badge
-                            badgeContent={numPicsOnColl()}
-                            color='secondary'
-                          >
-                            <PermMediaOutlinedIcon />
-                          </Badge>
-                        )
-                      }
-                    >
-                      Collection
-                    </Button>
-                  </Link>
-                ) : (
-                  <Link to='../'>
-                    <Button
-                      sx={{
-                        height: '56px',
-                        fontWeight: 'bold',
-                        borderColor: '#9d81b6',
-                        backgroundColor: '#9d81b615',
-                      }}
-                      style={{ color: '#7d4aa9' }}
-                      color='secondary'
-                      variant='outlined'
-                      endIcon={<CottageOutlinedIcon />}
-                    >
-                      Home
-                    </Button>
-                  </Link>
-                )}
-              </Grid>
-            )}
+                        </Badge>
+                      )
+                    }
+                  >
+                    Collection
+                  </Button>
+                </Link>
+              ) : (
+                <Link to='../'>
+                  <Button
+                    sx={{
+                      height: '56px',
+                      fontWeight: 'bold',
+                      borderColor: '#9d81b6',
+                      backgroundColor: '#9d81b615',
+                    }}
+                    style={{ color: '#7d4aa9' }}
+                    color='secondary'
+                    variant='outlined'
+                    endIcon={<CottageOutlinedIcon />}
+                  >
+                    Home
+                  </Button>
+                </Link>
+              )}
+            </Grid>
+          )}
 
-            <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
-            {/* CHIPS */}
-            {chips && !matches && (
-              <Grid
-                sx={{
-                  margin: '10px auto 20px auto',
-                  width: '50%',
-                }}
-                container
-                direction='row'
-                justifyContent='space-evenly'
-                alignItems='center'
-              >
-                <Chips />
-              </Grid>
-            )}
-          </Grid>
-        </AppBar>
-      </Slide>
+          <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
+          {/* CHIPS */}
+          {chips && !matches && (
+            <Grid
+              sx={{
+                margin: '10px auto 20px auto',
+                width: '50%',
+              }}
+              container
+              direction='row'
+              justifyContent='space-evenly'
+              alignItems='center'
+            >
+              <Chips />
+            </Grid>
+          )}
+        </Grid>
+      </AppBar>
     </>
   )
 }
