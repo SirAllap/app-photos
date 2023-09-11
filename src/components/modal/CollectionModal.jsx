@@ -28,17 +28,19 @@ import SaveAsIcon from '@mui/icons-material/SaveAs'
 const CollectionModal = () => {
   const dispatch = useDispatch()
   const [editDescription, setEditDescription] = useState('')
+  const [previousCustomDescription, setPreviousCustomDescription] = useState('')
   const [fetchDescription, setFetchDescription] = useState('')
   const [inputState, setInputState] = useState(true)
   const modalViewCollection = useSelector(modalViewState)
   const modalCurrentPhotoOfTheModal = useSelector(currentPhotoOfTheModal)
   const description = modalCurrentPhotoOfTheModal.description
   const altDescription = modalCurrentPhotoOfTheModal.altDescription
+  const customDescription = modalCurrentPhotoOfTheModal.customDescription
   const id = modalCurrentPhotoOfTheModal.id
 
   useEffect(() => {
     if (editDescription !== '') {
-      return setFetchDescription(editDescription)
+      setFetchDescription(editDescription)
     } else if (editDescription === '' && description !== null) {
       setFetchDescription(description)
     } else if (
@@ -50,6 +52,7 @@ const CollectionModal = () => {
     } else {
       setFetchDescription('This image do not have a description yet')
     }
+    customDescription && setPreviousCustomDescription(customDescription)
   }, [modalViewCollection, editDescription, altDescription, description])
 
   const inputOnChange = (e) => {
@@ -98,6 +101,7 @@ const CollectionModal = () => {
                   <ListItem>
                     <ListItemAvatar>
                       {inputState ? (
+                        //? edition buttons
                         <Avatar
                           variant='rounded'
                           sx={inputState ? editAvatar : onEditAvatar}
@@ -115,16 +119,41 @@ const CollectionModal = () => {
                     </ListItemAvatar>
 
                     <TextField
+                      //? text edit input
                       defaultValue={'Edit'}
                       hiddenLabel
                       fullWidth
                       onChange={inputOnChange}
+                      onKeyDown={(event) => {
+                        if (event.keyCode === 13) {
+                          event.preventDefault()
+                          setInputState(true)
+                          setFetchDescription(editDescription)
+                          dispatch(
+                            manageNewDescription({
+                              id: id,
+                              str: editDescription,
+                            })
+                          )
+                        }
+                      }}
                       disabled={inputState}
                       variant='standard'
                     />
                   </ListItem>
 
-                  <ListItemText primary={fetchDescription} />
+                  <ListItemText
+                    secondary={
+                      !previousCustomDescription
+                        ? null
+                        : `Custom: ${previousCustomDescription}`
+                    }
+                  />
+                  <ListItemText
+                    secondary={`Original: ${
+                      !description ? altDescription : description
+                    }`}
+                  />
                 </Grid>
               }
             </Grid>
