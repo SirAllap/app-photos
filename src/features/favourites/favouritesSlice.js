@@ -40,12 +40,12 @@ export const favouriteSlice = createSlice({
         return e.id === id
       })
       const addingTheKey = { ...photoFromTheList[0], customDescription: str }
-
+      const findIndex = state.savedPhotos.findIndex(e => e.id === id)
       const updatedState = state.savedPhotos.filter((e) => {
         return e.id !== id
       })
       state.savedPhotos = [...updatedState]
-      state.savedPhotos.push(addingTheKey)
+      state.savedPhotos.splice(findIndex, 0, addingTheKey)
       localStorage.setItem('collectionLocalSession', JSON.stringify(state.savedPhotos))
     },
   },

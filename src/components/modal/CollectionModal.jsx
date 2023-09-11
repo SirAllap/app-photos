@@ -28,17 +28,20 @@ import SaveAsIcon from '@mui/icons-material/SaveAs'
 const CollectionModal = () => {
   const dispatch = useDispatch()
   const [editDescription, setEditDescription] = useState('')
-  const [previousCustomDescription, setPreviousCustomDescription] = useState('')
+  const [customDescription, setCustomDescription] = useState('')
   const [fetchDescription, setFetchDescription] = useState('')
   const [inputState, setInputState] = useState(true)
   const modalViewCollection = useSelector(modalViewState)
   const modalCurrentPhotoOfTheModal = useSelector(currentPhotoOfTheModal)
   const description = modalCurrentPhotoOfTheModal.description
   const altDescription = modalCurrentPhotoOfTheModal.altDescription
-  const customDescription = modalCurrentPhotoOfTheModal.customDescription
+  const customDescriptionFromTheImage =
+    modalCurrentPhotoOfTheModal.customDescription
   const id = modalCurrentPhotoOfTheModal.id
 
   useEffect(() => {
+    customDescriptionFromTheImage &&
+      setCustomDescription(customDescriptionFromTheImage)
     if (editDescription !== '') {
       setFetchDescription(editDescription)
     } else if (editDescription === '' && description !== null) {
@@ -52,8 +55,13 @@ const CollectionModal = () => {
     } else {
       setFetchDescription('This image do not have a description yet')
     }
-    customDescription && setPreviousCustomDescription(customDescription)
-  }, [modalViewCollection, editDescription, altDescription, description])
+  }, [
+    modalViewCollection,
+    editDescription,
+    altDescription,
+    description,
+    customDescriptionFromTheImage,
+  ])
 
   const inputOnChange = (e) => {
     setInputState(false)
@@ -105,15 +113,17 @@ const CollectionModal = () => {
                         <Avatar
                           variant='rounded'
                           sx={inputState ? editAvatar : onEditAvatar}
+                          onClick={inputOnChange}
                         >
-                          <EditRoundedIcon onClick={inputOnChange} />
+                          <EditRoundedIcon />
                         </Avatar>
                       ) : (
                         <Avatar
                           variant='rounded'
                           sx={inputState ? editAvatar : onEditAvatar}
+                          onClick={handleClickAndSave}
                         >
-                          <SaveAsIcon onClick={handleClickAndSave} />
+                          <SaveAsIcon />
                         </Avatar>
                       )}
                     </ListItemAvatar>
@@ -144,9 +154,9 @@ const CollectionModal = () => {
 
                   <ListItemText
                     secondary={
-                      !previousCustomDescription
-                        ? null
-                        : `Custom: ${previousCustomDescription}`
+                      customDescription
+                        ? `Custom: ${customDescription}`
+                        : `No custom description yet!`
                     }
                   />
                   <ListItemText

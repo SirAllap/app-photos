@@ -47,6 +47,7 @@ const CardGrid = () => {
             {fetchSearchedPicsByUserInput.length === 0
               ? fetchInitialPhotos.map((e, i) => (
                   <PhotoCard
+                    key={i}
                     index={i}
                     id={e.id}
                     date={e.date}
@@ -58,7 +59,6 @@ const CardGrid = () => {
                     likes={e.likes}
                     downloadLink={e.download}
                     downloadLocationLink={e.downloadLocationLink}
-                    key={i}
                     userName={e.userName}
                     downloads={e.downloads}
                     views={e.views}
@@ -66,6 +66,7 @@ const CardGrid = () => {
                 ))
               : fetchSearchedPicsByUserInput.map((e, i) => (
                   <PhotoCard
+                    key={i}
                     index={i}
                     id={e.id}
                     date={e.date}
@@ -77,7 +78,6 @@ const CardGrid = () => {
                     likes={e.likes}
                     downloadLink={e.download}
                     downloadLocationLink={e.downloadLocationLink}
-                    key={i}
                     userName={e.userName}
                     downloads={e.downloads}
                     views={e.views}
