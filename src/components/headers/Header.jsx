@@ -46,14 +46,12 @@ const Header = ({ chips, button, mobile }) => {
             alignItems='center'
           >
             <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
-            {/* LOGO */}
             <Grid item xs={9} sm={0} md={1} xl={1}>
               <Link className='logo-img' to='../'>
                 <img src={require('../../assets/images/logo.png')} alt='logo' />
               </Link>
             </Grid>
 
-            {/* BUTTON-MOBILE */}
             {matches && (
               <Grid item xs={2} sm={0} md={3} xl={3}>
                 {button === 'collection' ? (
@@ -90,7 +88,6 @@ const Header = ({ chips, button, mobile }) => {
             )}
             <Grid item xs={0.5} sm={0.2} md={0.5} xl={0.5}></Grid>
 
-            {/* SEARCH BAR */}
             {matches && button !== 'collection' ? null : matches ? (
               <Grid item xs={12} sm={12} md={4} xl={6}>
                 <SearchBar matches={true} />
@@ -101,7 +98,6 @@ const Header = ({ chips, button, mobile }) => {
               </Grid>
             )}
 
-            {/* BUTTON */}
             {!matches && (
               <Grid item xs={1} sm={1} md={1} xl={1}>
                 {button === 'collection' ? (
@@ -154,7 +150,6 @@ const Header = ({ chips, button, mobile }) => {
             )}
 
             <Grid item xs={0} sm={0} md={1} xl={1}></Grid>
-            {/* CHIPS */}
             {chips && !matches && (
               <Grid
                 sx={{

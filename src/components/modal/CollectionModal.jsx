@@ -10,7 +10,6 @@ import {
 import {
   Avatar,
   Box,
-  Divider,
   Grid,
   ListItem,
   ListItemAvatar,
@@ -26,6 +25,7 @@ import AspectRatioIcon from '@mui/icons-material/AspectRatio'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import CloseIcon from '@mui/icons-material/Close'
 import SaveAsIcon from '@mui/icons-material/SaveAs'
+import Swal from 'sweetalert2'
 
 const CollectionModal = () => {
   const dispatch = useDispatch()
@@ -48,9 +48,21 @@ const CollectionModal = () => {
     setCurrentEditDescription(e.target.value)
   }
 
-  const handleClickAndSave = (e) => {
+  const handleClickAndSave = () => {
     setInputState(true)
-    dispatch(manageNewDescription({ id: id, str: currentEditDescription }))
+    Swal.fire({
+      position: 'bottom',
+      icon: 'success',
+      text: 'Saved!',
+      heightAuto: true,
+      showConfirmButton: false,
+      timer: 600,
+      timerProgressBar: 600,
+      backdrop: false,
+    })
+    return dispatch(
+      manageNewDescription({ id: id, str: currentEditDescription })
+    )
   }
 
   const handleClose = () => {
@@ -73,12 +85,10 @@ const CollectionModal = () => {
             justifyContent='space-evenly'
             alignItems='center'
           >
-            {/* closeBtn */}
             <Avatar variant='rounded' sx={closeAvatar} onClick={handleClose}>
               <CloseIcon />
             </Avatar>
 
-            {/* img+edit */}
             <Grid item>
               <Typography
                 align='justify'
@@ -158,7 +168,6 @@ const CollectionModal = () => {
                 </Grid>
               }
             </Grid>
-            {/* likes+date+size */}
             <Grid container direction='row' justifyContent='center'>
               {<Grid item xs={0} sm={1} md={1} xl={1}></Grid>}
               {

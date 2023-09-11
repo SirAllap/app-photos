@@ -21,7 +21,6 @@ html {
 }
 
 ::-moz-selection {
-  /* Code for Firefox */
   background: #9d81b6;
   color: white;
 }

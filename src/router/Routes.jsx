@@ -17,10 +17,8 @@ const Router = () => {
       <Routes>
         <Route path='/' element={<Home />} />
 
-        {/* GH PAGES */}
         <Route path='/app-photos' element={<Home />} />
         <Route path='*' element={<Home />} />
-        {/* GH PAGES */}
 
         <Route path='/collection' element={<Collection />} />
       </Routes>
