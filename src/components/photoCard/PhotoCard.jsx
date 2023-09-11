@@ -4,7 +4,7 @@ import './photoCard.css'
 import { saveThisPhotoToCollection } from '../../features/favourites/favouritesSlice'
 import { removeLikedPic } from '../../features/search/searchSlice'
 import { fetch1Pic } from '../../features/search/searchThunks'
-import { Box, Grid, Link, Modal, Stack } from '@mui/material'
+import { Box, Grid, Link, Modal, Stack, Zoom } from '@mui/material'
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import CropSquareOutlinedIcon from '@mui/icons-material/CropSquareOutlined'
@@ -85,72 +85,74 @@ const PhotoCard = ({
 
   return (
     <>
-      <Stack className='photo-card'>
-        <section className='photo-info-home'>
-          <p>
-            Photo by{' '}
-            <Link
-              color={{ color: 'rgb(49, 49, 49)' }}
-              underline='hover'
-              href={
-                'https://unsplash.com/@' +
-                userName +
-                '?utm_source=OxygenAcademyPhotoApp&utm_medium=referral'
-              }
-            >
-              {userName}
-            </Link>{' '}
-            on{' '}
-            <Link
-              color={{ color: 'rgb(49, 49, 49)' }}
-              underline='hover'
-              href='https://unsplash.com/?utm_source=OxygenAcademyPhotoApp&utm_medium=referral'
-            >
-              Unsplash
-            </Link>
-          </p>
-        </section>
-        <section className='imagen-section'>
-          <img src={photo} alt={`Owner: ${userName}`} onClick={handleOpen} />
-        </section>
-        <section className='photo-info-home'>
-          {views && downloads && (
+      <Zoom in={true} style={{ transitionDelay: '450ms' }}>
+        <Stack className='photo-card'>
+          <section className='photo-info-home'>
             <p>
-              Views: {views} || Downloads: {downloads}
+              Photo by{' '}
+              <Link
+                color={{ color: 'rgb(49, 49, 49)' }}
+                underline='hover'
+                href={
+                  'https://unsplash.com/@' +
+                  userName +
+                  '?utm_source=OxygenAcademyPhotoApp&utm_medium=referral'
+                }
+              >
+                {userName}
+              </Link>{' '}
+              on{' '}
+              <Link
+                color={{ color: 'rgb(49, 49, 49)' }}
+                underline='hover'
+                href='https://unsplash.com/?utm_source=OxygenAcademyPhotoApp&utm_medium=referral'
+              >
+                Unsplash
+              </Link>
             </p>
-          )}
-        </section>
-        <section className='action-span'>
-          <span className='download'>
-            <Link
-              href={urlToDownload}
-              underline='none'
-              color='inherit'
-              onClick={downloadPhoto}
-            >
-              <FileDownloadOutlinedIcon
+          </section>
+          <section className='imagen-section'>
+            <img src={photo} alt={`Owner: ${userName}`} onClick={handleOpen} />
+          </section>
+          <section className='photo-info-home'>
+            {views && downloads && (
+              <p>
+                Views: {views} || Downloads: {downloads}
+              </p>
+            )}
+          </section>
+          <section className='action-span'>
+            <span className='download'>
+              <Link
+                href={urlToDownload}
+                underline='none'
+                color='inherit'
+                onClick={downloadPhoto}
+              >
+                <FileDownloadOutlinedIcon
+                  fontSize='large'
+                  sx={{ color: '#7d4aa9' }}
+                />
+              </Link>
+            </span>
+            <span className='fav-icon'>
+              <FavoriteBorderOutlinedIcon
+                onClick={handleSave2Collection}
+                className='heart-icon-liked'
                 fontSize='large'
                 sx={{ color: '#7d4aa9' }}
               />
-            </Link>
-          </span>
-          <span className='fav-icon'>
-            <FavoriteBorderOutlinedIcon
-              onClick={handleSave2Collection}
-              className='heart-icon-liked'
-              fontSize='large'
-              sx={{ color: '#7d4aa9' }}
-            />
-          </span>
-          <span className='full-screen'>
-            <CropSquareOutlinedIcon
-              fontSize='large'
-              sx={{ color: '#7d4aa9' }}
-              onClick={handleOpen}
-            />
-          </span>
-        </section>
-      </Stack>
+            </span>
+            <span className='full-screen'>
+              <CropSquareOutlinedIcon
+                fontSize='large'
+                sx={{ color: '#7d4aa9' }}
+                onClick={handleOpen}
+              />
+            </span>
+          </section>
+        </Stack>
+      </Zoom>
       <Modal
         open={open}
         onClose={handleClose}

@@ -15,8 +15,8 @@ const URL = {
     urlSearchParameter: {
         urlParam: `search/photos?query=`,
     },
-    // clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY_1}`,
-    clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY}`,
+    clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY_1}`,
+    // clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY}`,
     // clientID1: `&client_id=${process.env.REACT_APP_ACCESS_KEY_1}`
 }
 

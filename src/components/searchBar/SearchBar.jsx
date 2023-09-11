@@ -66,7 +66,7 @@ const SearchBar = ({ isMobile }) => {
     <>
       <Box component='form' noValidate autoComplete='off'>
         <CssTextField
-          autoFocus
+          autoFocus={isMobile}
           placeholder={userInput}
           value={currentInput.text}
           onChange={(event) => {
