@@ -10,14 +10,16 @@ import {
 import {
   Avatar,
   Box,
+  Divider,
   Grid,
   ListItem,
   ListItemAvatar,
-  ListItemText,
   Modal,
   TextField,
+  Typography,
+  styled,
 } from '@mui/material'
-import { green, pink } from '@mui/material/colors'
+import { pink } from '@mui/material/colors'
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded'
 import DateRangeIcon from '@mui/icons-material/DateRange'
 import AspectRatioIcon from '@mui/icons-material/AspectRatio'
@@ -78,13 +80,61 @@ const CollectionModal = () => {
 
             {/* img+edit */}
             <Grid item>
+              <Typography
+                align='justify'
+                variant='p'
+                component='p'
+                sx={{ m: 1, ml: 0 }}
+              >
+                {description ? description : altDescription}
+              </Typography>
               <section className='modal-imagen-collection-section'>
                 <img src={modalCurrentPhotoOfTheModal.photo} alt='' />
               </section>
+              <Typography
+                align='justify'
+                variant='p'
+                component='p'
+                sx={{ m: 1, ml: 0 }}
+              >
+                <mark className='modal-highlight'>Custom description:</mark>{' '}
+                {customDescriptionFromTheImage
+                  ? `${customDescriptionFromTheImage}`
+                  : 'No custom description yet!'}
+              </Typography>
+
               {
                 <Grid item>
                   <ListItem>
-                    <ListItemAvatar>
+                    <CssTextFieldDescriptionInput
+                      //? text edit input
+                      placeholder={
+                        !customDescriptionFromTheImage
+                          ? 'No custom description yet!'
+                          : customDescriptionFromTheImage
+                      }
+                      hiddenLabel
+                      fullWidth
+                      onChange={inputOnChange}
+                      onKeyDown={(event) => {
+                        if (event.keyCode === 13) {
+                          event.preventDefault()
+                          setInputState(true)
+                          dispatch(
+                            manageNewDescription({
+                              id: id,
+                              str: currentEditDescription,
+                            })
+                          )
+                        }
+                      }}
+                      disabled={inputState}
+                      variant='outlined'
+                      size='small'
+                      focused={!inputState}
+                      style={{ color: '#4966A6' }}
+                    />
+                    <ListItemAvatar sx={editListItemAvatar}>
                       {inputState ? (
                         //? edition buttons
                         <Avatar
@@ -104,47 +154,7 @@ const CollectionModal = () => {
                         </Avatar>
                       )}
                     </ListItemAvatar>
-
-                    <TextField
-                      //? text edit input
-                      placeholder={
-                        !customDescriptionFromTheImage
-                          ? 'No custom description yet!'
-                          : customDescriptionFromTheImage
-                      }
-                      hiddenLabel
-                      fullWidth
-                      onChange={inputOnChange}
-                      onKeyDown={(event) => {
-                        if (event.keyCode === 13) {
-                          event.preventDefault()
-                          setInputState(true)
-
-                          dispatch(
-                            manageNewDescription({
-                              id: id,
-                              str: currentEditDescription,
-                            })
-                          )
-                        }
-                      }}
-                      disabled={inputState}
-                      variant='standard'
-                    />
                   </ListItem>
-
-                  <ListItemText
-                    secondary={
-                      customDescriptionFromTheImage
-                        ? `Custom: ${customDescriptionFromTheImage}`
-                        : null
-                    }
-                  />
-                  <ListItemText
-                    secondary={`Original: ${
-                      description ? description : altDescription
-                    }`}
-                  />
                 </Grid>
               }
             </Grid>
@@ -159,7 +169,9 @@ const CollectionModal = () => {
                         <ThumbUpRoundedIcon />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={modalCurrentPhotoOfTheModal.likes} />
+                    <Typography variant='p' sx={{ p: 1 }}>
+                      {modalCurrentPhotoOfTheModal.likes}
+                    </Typography>
                   </ListItem>
                 </Grid>
               }
@@ -171,7 +183,9 @@ const CollectionModal = () => {
                         <DateRangeIcon />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={modalCurrentPhotoOfTheModal.date} />
+                    <Typography variant='p' sx={{ p: 1 }}>
+                      {modalCurrentPhotoOfTheModal.date}
+                    </Typography>
                   </ListItem>
                 </Grid>
               }
@@ -183,13 +197,12 @@ const CollectionModal = () => {
                         <AspectRatioIcon />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText
-                      primary={
-                        modalCurrentPhotoOfTheModal.width +
+
+                    <Typography variant='p' sx={{ p: 1 }}>
+                      {modalCurrentPhotoOfTheModal.width +
                         ' x ' +
-                        modalCurrentPhotoOfTheModal.height
-                      }
-                    />
+                        modalCurrentPhotoOfTheModal.height}
+                    </Typography>
                   </ListItem>
                 </Grid>
               }
@@ -213,20 +226,66 @@ const closeAvatar = {
   fontWeight: 'bold',
 }
 
+const CssTextFieldDescriptionInput = styled(TextField)({
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      border: '2px solid',
+      borderColor: '#9d81b685',
+    },
+    '&:hover fieldset': {
+      borderColor: '#9d81b655',
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#9d81b6',
+    },
+  },
+})
+
+const editListItemAvatar = {
+  p: 0,
+  paddingLeft: 3,
+}
 const likeAvatar = {
   bgcolor: pink[500],
+  '&:hover': {
+    bgcolor: pink[300],
+  },
+  width: 50,
+  height: 50,
 }
 const dateAvatar = {
-  bgcolor: green[500],
+  bgcolor: '#9d81b6',
+  '&:hover': {
+    bgcolor: '#9d81b699',
+  },
+  width: 50,
+  height: 50,
 }
 const editAvatar = {
   cursor: 'pointer',
-  bgcolor: '#4966A6',
+  color: '#ffffff85',
+  bgcolor: '#FABE5885',
+  width: 40,
+  height: 40,
+  '&:hover': {
+    color: '#fff',
+    bgcolor: '#FABE58',
+    transition: '500ms',
+    transform: 'scale(1.1)',
+  },
 }
 const onEditAvatar = {
   cursor: 'pointer',
-  color: '#4966A6',
+  color: '#fff',
   bgcolor: '#FABE58',
+  width: 40,
+  height: 40,
+  '&:hover': {
+    color: '#ffffff85',
+    bgcolor: '#FABE5885',
+    transition: '500ms',
+    transform: 'scale(1.1)',
+  },
 }
 
 const collectionModalStyle = {

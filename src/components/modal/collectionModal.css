@@ -8,3 +8,14 @@
   object-fit: contain;
   transition: 0.3s;
 }
+.css-ni5j6x-MuiListItemAvatar-root {
+  min-width: 40px !important;
+}
+.modal-highlight {
+  font-size: 0.8rem;
+  background-color: #9d81b6;
+  border-radius: 4px;
+  color: white;
+  padding: 0.4em 0.5em;
+  transition: 500ms;
+}

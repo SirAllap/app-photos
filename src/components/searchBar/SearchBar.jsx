@@ -73,7 +73,6 @@ const SearchBar = ({ isMobile }) => {
             setCurrentInput({ text: event.target.value })
           }}
           size={isMobile ? 'small' : 'regular'}
-          id='outlined-basic'
           variant='outlined'
           onKeyDown={(event) => {
             if (event.keyCode === 13) {

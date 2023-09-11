@@ -27,6 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "build&AWS": "react-scripts build && aws s3 sync build/ s3://oxygen-academy-photo-app --profile sirallap && echo 'Complete!'",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "build": "react-scripts build",
