@@ -46,6 +46,7 @@ export const favouriteSlice = createSlice({
       })
       state.savedPhotos = [...updatedState]
       state.savedPhotos.push(addingTheKey)
+      localStorage.setItem('collectionLocalSession', JSON.stringify(state.savedPhotos))
     },
   },
 })
