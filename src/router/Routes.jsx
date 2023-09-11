@@ -10,7 +10,7 @@ const Router = () => {
 
   useEffect(() => {
     dispatch(fetchInitialPics())
-  }, [dispatch])
+  }, [])
 
   return (
     <>

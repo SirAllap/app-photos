@@ -5,17 +5,23 @@ const initialState = {
   setModalView: false,
   photoOfCurrentViewModal: [],
 }
+
+const localData = JSON.parse(localStorage.getItem('collectionLocalSession'))
+const saveLocaData = () => {
+  localData.map(e => initialState.savedPhotos.push(e))
+}
+localData && saveLocaData()
+
 export const favouriteSlice = createSlice({
   name: 'favouritesPhotos',
   initialState,
   reducers: {
     saveThisPhotoToCollection: (state, action) => {
       state.savedPhotos.push(action.payload)
+      localStorage.setItem('collectionLocalSession', JSON.stringify(state.savedPhotos))
     },
     removeThisPhotoFromCollection: (state, action) => {
-      const result = state.savedPhotos.filter(
-        (e) => e.id !== action.payload
-      )
+      const result = state.savedPhotos.filter((e) => e.id !== action.payload)
       state.savedPhotos = result
     },
     manageModalView: (state, action) => {
@@ -46,8 +52,14 @@ export const favouriteSlice = createSlice({
 
 export default favouriteSlice.reducer
 
-export const { saveThisPhotoToCollection, removeThisPhotoFromCollection, manageModalView, manageNewDescription } = favouriteSlice.actions
+export const {
+  saveThisPhotoToCollection,
+  removeThisPhotoFromCollection,
+  manageModalView,
+  manageNewDescription,
+} = favouriteSlice.actions
 
 export const savedPhotos = (state) => state.favouritesPhotos.savedPhotos
 export const modalViewState = (state) => state.favouritesPhotos.setModalView
-export const currentPhotoOfTheModal = (state) => state.favouritesPhotos.photoOfCurrentViewModal
+export const currentPhotoOfTheModal = (state) =>
+  state.favouritesPhotos.photoOfCurrentViewModal
