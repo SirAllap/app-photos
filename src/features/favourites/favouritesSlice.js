@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   savedPhotos: [],
+  searchCollection: [],
   setModalView: false,
   photoOfCurrentViewModal: [],
 }
@@ -48,6 +49,9 @@ export const favouriteSlice = createSlice({
       state.savedPhotos.splice(findIndex, 0, addingTheKey)
       localStorage.setItem('collectionLocalSession', JSON.stringify(state.savedPhotos))
     },
+    searchedResultFromCollection: (state, action) => {
+      state.searchCollection = action.payload
+    }
   },
 })
 
@@ -58,6 +62,7 @@ export const {
   removeThisPhotoFromCollection,
   manageModalView,
   manageNewDescription,
+  searchedResultFromCollection
 } = favouriteSlice.actions
 
 export const savedPhotos = (state) => state.favouritesPhotos.savedPhotos

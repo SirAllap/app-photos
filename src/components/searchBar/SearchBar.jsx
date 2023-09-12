@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { findPicsByUserInput } from '../../features/search/searchThunks'
 import { clearSavedPicsByInput } from '../../features/search/searchSlice'
@@ -12,6 +13,10 @@ import {
 } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
+import {
+  savedPhotos,
+  searchedResultFromCollection,
+} from '../../features/favourites/favouritesSlice'
 
 const CssTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
@@ -30,9 +35,12 @@ const CssTextField = styled(TextField)({
 
 const SearchBar = ({ isMobile }) => {
   const dispatch = useDispatch()
+  const location = useLocation()
+  const savedPics = useSelector(savedPhotos)
   const [currentInput, setCurrentInput] = useState({ text: '' })
   const [userInput, setUserInput] = useState('')
-
+  const [resultFromTheCollectionSearch, setResultFromTheCollectionSearch] =
+    useState([])
   const searchedInput = useSelector((state) => state.browsedImages.search.input)
 
   useEffect(() => {
@@ -41,7 +49,19 @@ const SearchBar = ({ isMobile }) => {
     } else {
       setUserInput('e.g: Black cat')
     }
-  }, [searchedInput, userInput])
+    resultFromTheCollectionSearch &&
+      dispatch(
+        searchedResultFromCollection(
+          resultFromTheCollectionSearch.filter(
+            (value, index, self) =>
+              index ===
+              self.findIndex(
+                (t) => t.place === value.place && t.name === value.name
+              )
+          )
+        )
+      )
+  }, [searchedInput, userInput, resultFromTheCollectionSearch, dispatch])
 
   const clearInput = () => {
     if (currentInput.text !== ' ') {
@@ -62,50 +82,135 @@ const SearchBar = ({ isMobile }) => {
     }
   }
 
+  const filterSearch = () => {
+    return savedPics.filter(
+      (savedPic) =>
+        (savedPic.customDescription !== (undefined && null)
+          ? savedPic.customDescription
+              .toLowerCase()
+              .includes(currentInput.text) &&
+            setResultFromTheCollectionSearch(
+              (resultFromTheCollectionSearch) => [
+                ...resultFromTheCollectionSearch,
+                savedPic,
+              ]
+            )
+          : false) ||
+        (savedPic.description !== null
+          ? savedPic.description.toLowerCase().includes(currentInput.text) &&
+            setResultFromTheCollectionSearch(
+              (resultFromTheCollectionSearch) => [
+                ...resultFromTheCollectionSearch,
+                savedPic,
+              ]
+            )
+          : false) ||
+        (savedPic.altDescription !== null
+          ? savedPic.altDescription.toLowerCase().includes(currentInput.text) &&
+            setResultFromTheCollectionSearch(
+              (resultFromTheCollectionSearch) => [
+                ...resultFromTheCollectionSearch,
+                savedPic,
+              ]
+            )
+          : false)
+    )
+  }
+
+  const handleCollectionSearch = () => {
+    setResultFromTheCollectionSearch([])
+    filterSearch()
+  }
+
   return (
     <>
-      <Box component='form' noValidate autoComplete='off'>
-        <CssTextField
-          autoFocus={isMobile}
-          placeholder={userInput}
-          value={currentInput.text}
-          onChange={(event) => {
-            setCurrentInput({ text: event.target.value })
-          }}
-          size={isMobile ? 'small' : 'regular'}
-          variant='outlined'
-          onKeyDown={(event) => {
-            if (event.keyCode === 13) {
-              event.preventDefault()
-              dispatch(findPicsByUserInput(currentInput.text))
-            }
-          }}
-          style={{ color: '#4966A6' }}
-          color='primary'
-          sx={inputStyle}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position='end'>
-                <IconButton
-                  type='button'
-                  sx={{ p: '10px' }}
-                  onClick={clearInput}
-                >
-                  <CancelOutlinedIcon />
-                </IconButton>
-                <Divider sx={{ height: 28, m: 1 }} orientation='vertical' />
-                <IconButton
-                  type='button'
-                  sx={{ p: '10px' }}
-                  onClick={handleSearch}
-                >
-                  <SearchIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Box>
+      {location.pathname === '/collection' ? (
+        <Box component='form' noValidate autoComplete='off'>
+          <CssTextField
+            autoFocus={isMobile}
+            placeholder={userInput}
+            value={currentInput.text}
+            onChange={(event) => {
+              setCurrentInput({ text: event.target.value })
+            }}
+            size={isMobile ? 'small' : 'regular'}
+            variant='outlined'
+            onKeyDown={(event) => {
+              if (event.keyCode === 13) {
+                event.preventDefault()
+                handleCollectionSearch()
+              }
+            }}
+            style={{ color: '#4966A6' }}
+            color='primary'
+            sx={inputStyle}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    type='button'
+                    sx={{ p: '10px' }}
+                    onClick={clearInput}
+                  >
+                    <CancelOutlinedIcon />
+                  </IconButton>
+                  <Divider sx={{ height: 28, m: 1 }} orientation='vertical' />
+                  <IconButton
+                    type='button'
+                    sx={{ p: '10px' }}
+                    onClick={handleCollectionSearch}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+      ) : (
+        <Box component='form' noValidate autoComplete='off'>
+          <CssTextField
+            autoFocus={isMobile}
+            placeholder={userInput}
+            value={currentInput.text}
+            onChange={(event) => {
+              setCurrentInput({ text: event.target.value })
+            }}
+            size={isMobile ? 'small' : 'regular'}
+            variant='outlined'
+            onKeyDown={(event) => {
+              if (event.keyCode === 13) {
+                event.preventDefault()
+                dispatch(findPicsByUserInput(currentInput.text))
+              }
+            }}
+            style={{ color: '#4966A6' }}
+            color='primary'
+            sx={inputStyle}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    type='button'
+                    sx={{ p: '10px' }}
+                    onClick={clearInput}
+                  >
+                    <CancelOutlinedIcon />
+                  </IconButton>
+                  <Divider sx={{ height: 28, m: 1 }} orientation='vertical' />
+                  <IconButton
+                    type='button'
+                    sx={{ p: '10px' }}
+                    onClick={handleSearch}
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+      )}
     </>
   )
 }

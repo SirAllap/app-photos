@@ -28,7 +28,6 @@ const Header = ({ chips, button, mobile }) => {
   }
 
   const triggerScroll = useScrollTrigger()
-  console.log(triggerScroll)
   return (
     <>
       <Slide in={!triggerScroll}>
