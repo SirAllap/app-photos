@@ -80,7 +80,7 @@ const CollectionPhotoCard = ({
 
   return (
     <>
-      <Stack useFlexGap={true} sx={{ mb: 2 }} className='photo-card-collection'>
+      <Stack sx={{ mb: 2 }} className='photo-card-collection'>
         <section className='card-items-collection'>
           <section className='imagen-section-collection'>
             <Typography

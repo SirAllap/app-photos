@@ -14,6 +14,7 @@ const URL = {
     },
     urlSearchParameter: {
         urlParam: `search/photos?query=`,
+        urlOrder: `&order_by=latest`,
     },
     clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY_1}`,
     // clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY}`,
@@ -137,7 +138,7 @@ export const findPicsByUserInput = createAsyncThunk(
         try {
             let search = []
             search = await axios(
-                URL.baseURL + URL.urlSearchParameter.urlParam + userInput + URL.clientID
+                URL.baseURL + URL.urlSearchParameter.urlParam + userInput + URL.urlSearchParameter.urlOrder + URL.clientID
             ).then((res) => {
                 return res.data.results
             })

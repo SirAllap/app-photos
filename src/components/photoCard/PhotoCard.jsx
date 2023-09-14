@@ -86,7 +86,7 @@ const PhotoCard = ({
   return (
     <>
       <Zoom in={true} style={{ transitionDelay: '450ms' }}>
-        <Stack useFlexGap={true} sx={{ mb: 2 }} className='photo-card'>
+        <Stack sx={{ mb: 2 }} className='photo-card'>
           <section className='photo-info-home'>
             <p>
               Photo by{' '}
