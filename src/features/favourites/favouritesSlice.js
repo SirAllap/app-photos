@@ -24,6 +24,7 @@ export const favouriteSlice = createSlice({
     removeThisPhotoFromCollection: (state, action) => {
       const result = state.savedPhotos.filter((e) => e.id !== action.payload)
       state.savedPhotos = result
+      localStorage.setItem('collectionLocalSession', JSON.stringify(state.savedPhotos))
     },
     manageModalView: (state, action) => {
       const { id, bol } = action.payload

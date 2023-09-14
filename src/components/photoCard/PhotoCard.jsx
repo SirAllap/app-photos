@@ -112,7 +112,7 @@ const PhotoCard = ({
             </p>
           </section>
           <section className='imagen-section'>
-            <img src={photo} alt={`Owner: ${userName}`} onClick={handleOpen} />
+            <img src={photo} alt={altDescription} onClick={handleOpen} />
           </section>
           <section className='photo-info-home'>
             {views && downloads && (
