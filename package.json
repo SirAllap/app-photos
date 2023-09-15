@@ -1,7 +1,7 @@
 {
   "name": "app-photos",
   "version": "0.1.0",
-  "home": "http://SirAllap.github.io/app-photos",
+  "homepage": "http://SirAllap.github.io/app-photos",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",

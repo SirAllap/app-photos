@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-
 const URL = {
     baseURL: `https://api.unsplash.com/`,
     urlRandomParameter: {
@@ -14,10 +13,12 @@ const URL = {
     },
     urlSearchParameter: {
         urlParam: `search/photos?query=`,
-        urlOrder: `&order_by=latest`,
+        urlOrder: `&order_by=relevant`,
+        urlPage: `&page=2`,
+        urlPerPage: `&per_page=30`,
     },
-    clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY_1}`,
-    // clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY}`,
+    // clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY_1}`,
+    clientID: `&client_id=${process.env.REACT_APP_ACCESS_KEY}`,
     // clientID1: `&client_id=${process.env.REACT_APP_ACCESS_KEY_1}`
 }
 
@@ -95,7 +96,6 @@ export const secondFetchInitialPics = createAsyncThunk(
         }
     }
 )
-
 export const fetch1Pic = createAsyncThunk(
     'browsedImages/fetch1Pic',
     async () => {
@@ -131,14 +131,13 @@ export const fetch1Pic = createAsyncThunk(
         }
     }
 )
-
 export const findPicsByUserInput = createAsyncThunk(
     'browsedImages/findPicsByUserInput',
     async (userInput) => {
         try {
             let search = []
             search = await axios(
-                URL.baseURL + URL.urlSearchParameter.urlParam + userInput + URL.urlSearchParameter.urlOrder + URL.clientID
+                URL.baseURL + URL.urlSearchParameter.urlParam + userInput + URL.urlSearchParameter.urlOrder + URL.urlSearchParameter.urlPage + URL.urlSearchParameter.urlPerPage + URL.clientID
             ).then((res) => {
                 return res.data.results
             })
