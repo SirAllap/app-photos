@@ -67,6 +67,7 @@ export const {
 } = favouriteSlice.actions
 
 export const savedPhotos = (state) => state.favouritesPhotos.savedPhotos
+export const searchCollection = (state) => state.favouritesPhotos.searchCollection
 export const modalViewState = (state) => state.favouritesPhotos.setModalView
 export const currentPhotoOfTheModal = (state) =>
   state.favouritesPhotos.photoOfCurrentViewModal

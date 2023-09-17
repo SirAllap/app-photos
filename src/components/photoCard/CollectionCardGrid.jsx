@@ -3,18 +3,25 @@ import { useSelector } from 'react-redux'
 import './collectionCardGrid.css'
 import CollectionPhotoCard from './CollectionPhotoCard'
 import CollectionModal from '../modal/CollectionModal'
-import { savedPhotos } from '../../features/favourites/favouritesSlice'
+import {
+  savedPhotos,
+  searchCollection,
+} from '../../features/favourites/favouritesSlice'
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 
 const CollectionCardGrid = (initialPics) => {
   const [sortSelection, setSortSelection] = useState('')
   const [sortedPhotos, setSortedPhotos] = useState([])
+  const [resultOfInputSearch, setResultOfInputSearch] = useState([])
   const savedPics = useSelector(savedPhotos)
+  const filteredByInputPhotos = useSelector(searchCollection)
 
   useEffect(() => {
     setSortedPhotos(savedPics)
-  }, [savedPics])
+    setResultOfInputSearch(filteredByInputPhotos)
+    console.log(resultOfInputSearch.length <= 1)
+  }, [savedPics, filteredByInputPhotos, resultOfInputSearch])
 
   const handleChange = (e) => {
     setSortSelection(e.target.value)
@@ -91,6 +98,26 @@ const CollectionCardGrid = (initialPics) => {
             src={require('../../assets/images/nothingAdded.png')}
             alt='logo'
           />
+        ) : resultOfInputSearch.length >= 1 ? (
+          resultOfInputSearch.map((e, i) => (
+            <CollectionPhotoCard
+              index={i}
+              id={e.id}
+              date={e.date}
+              width={e.width}
+              height={e.height}
+              description={e.description}
+              altDescription={e.altDescription}
+              photo={e.photo}
+              likes={e.likes}
+              downloadLink={e.downloadLink}
+              downloadLocationLink={e.downloadLocationLink}
+              key={i}
+              customDescription={
+                e.customDescription !== '' ? e.customDescription : ''
+              }
+            />
+          ))
         ) : sortedPhotos ? (
           sortedPhotos.map((e, i) => (
             <CollectionPhotoCard
@@ -112,25 +139,28 @@ const CollectionCardGrid = (initialPics) => {
             />
           ))
         ) : (
-          savedPics.map((e, i) => (
-            <CollectionPhotoCard
-              index={i}
-              id={e.id}
-              date={e.date}
-              width={e.width}
-              height={e.height}
-              description={e.description}
-              altDescription={e.altDescription}
-              photo={e.photo}
-              likes={e.likes}
-              downloadLink={e.downloadLink}
-              downloadLocationLink={e.downloadLocationLink}
-              key={i}
-              customDescription={
-                e.customDescription !== '' ? e.customDescription : ''
-              }
-            />
-          ))
+          resultOfInputSearch.length <
+          1(
+            savedPics.map((e, i) => (
+              <CollectionPhotoCard
+                index={i}
+                id={e.id}
+                date={e.date}
+                width={e.width}
+                height={e.height}
+                description={e.description}
+                altDescription={e.altDescription}
+                photo={e.photo}
+                likes={e.likes}
+                downloadLink={e.downloadLink}
+                downloadLocationLink={e.downloadLocationLink}
+                key={i}
+                customDescription={
+                  e.customDescription !== '' ? e.customDescription : ''
+                }
+              />
+            ))
+          )
         )}
       </div>
     </>

@@ -52,16 +52,23 @@ const SearchBar = ({ isMobile }) => {
     resultFromTheCollectionSearch &&
       dispatch(
         searchedResultFromCollection(
-          resultFromTheCollectionSearch.filter(
-            (value, index, self) =>
-              index ===
-              self.findIndex(
-                (t) => t.place === value.place && t.name === value.name
-              )
-          )
+          // resultFromTheCollectionSearch.filter(
+          //   (value, index, self) =>
+          //     index ===
+          //     self.findIndex(
+          //       (t) => t.place === value.place && t.name === value.name
+          //     )
+          // )
+          resultFromTheCollectionSearch
         )
       )
-  }, [searchedInput, userInput, resultFromTheCollectionSearch, dispatch])
+  }, [
+    searchedInput,
+    userInput,
+    resultFromTheCollectionSearch,
+    dispatch,
+    currentInput,
+  ])
 
   const clearInput = () => {
     if (currentInput.text !== ' ') {
@@ -83,38 +90,44 @@ const SearchBar = ({ isMobile }) => {
   }
 
   const filterSearch = () => {
-    return savedPics.filter(
-      (savedPic) =>
-        (savedPic.customDescription !== (undefined && null)
-          ? savedPic.customDescription
-              .toLowerCase()
-              .includes(currentInput.text) &&
-            setResultFromTheCollectionSearch(
-              (resultFromTheCollectionSearch) => [
-                ...resultFromTheCollectionSearch,
-                savedPic,
-              ]
-            )
-          : false) ||
-        (savedPic.description !== null
-          ? savedPic.description.toLowerCase().includes(currentInput.text) &&
-            setResultFromTheCollectionSearch(
-              (resultFromTheCollectionSearch) => [
-                ...resultFromTheCollectionSearch,
-                savedPic,
-              ]
-            )
-          : false) ||
-        (savedPic.altDescription !== null
-          ? savedPic.altDescription.toLowerCase().includes(currentInput.text) &&
-            setResultFromTheCollectionSearch(
-              (resultFromTheCollectionSearch) => [
-                ...resultFromTheCollectionSearch,
-                savedPic,
-              ]
-            )
-          : false)
-    )
+    return currentInput.text.length !== 0
+      ? savedPics.filter(
+          (savedPic) =>
+            (savedPic.customDescription !== (undefined && null)
+              ? savedPic.customDescription
+                  .toLowerCase()
+                  .includes(currentInput.text) &&
+                setResultFromTheCollectionSearch(
+                  (resultFromTheCollectionSearch) => [
+                    ...resultFromTheCollectionSearch,
+                    savedPic,
+                  ]
+                )
+              : false) ||
+            (savedPic.description !== null
+              ? savedPic.description
+                  .toLowerCase()
+                  .includes(currentInput.text) &&
+                setResultFromTheCollectionSearch(
+                  (resultFromTheCollectionSearch) => [
+                    ...resultFromTheCollectionSearch,
+                    savedPic,
+                  ]
+                )
+              : false) ||
+            (savedPic.altDescription !== null
+              ? savedPic.altDescription
+                  .toLowerCase()
+                  .includes(currentInput.text) &&
+                setResultFromTheCollectionSearch(
+                  (resultFromTheCollectionSearch) => [
+                    ...resultFromTheCollectionSearch,
+                    savedPic,
+                  ]
+                )
+              : false)
+        )
+      : null
   }
 
   const handleCollectionSearch = () => {
@@ -128,7 +141,7 @@ const SearchBar = ({ isMobile }) => {
         <Box component='form' noValidate autoComplete='off'>
           <CssTextField
             autoFocus={isMobile}
-            placeholder={userInput}
+            placeholder={'Search collection'}
             value={currentInput.text}
             onChange={(event) => {
               setCurrentInput({ text: event.target.value })
