@@ -1,7 +1,6 @@
 {
 	"name": "app-photos",
 	"version": "0.1.0",
-	"homepage": "http://SirAllap.github.io/app-photos",
 	"private": true,
 	"dependencies": {
 		"@emotion/react": "^11.11.1",
@@ -27,7 +26,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"plus-build": "react-scripts build && aws s3 sync build/ s3://oxygen-academy-photo-app --profile sirallap",
+		"super-deploy": "react-scripts build && aws s3 sync build/ s3://oxygen-academy-photo-app --delete --profile sirallap",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build",
 		"build": "react-scripts build",

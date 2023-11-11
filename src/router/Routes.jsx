@@ -6,24 +6,24 @@ import { useDispatch } from 'react-redux'
 import { fetchInitialPics } from '../features/search/searchThunks'
 
 const Router = () => {
-  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(fetchInitialPics())
-  }, [dispatch])
+	useEffect(() => {
+		dispatch(fetchInitialPics())
+	}, [dispatch])
 
-  return (
-    <>
-      <Routes>
-        <Route path='/' element={<Home />} />
+	return (
+		<>
+			<Routes>
+				<Route path='/' element={<Home />} />
 
-        <Route path='/app-photos' element={<Home />} />
-        <Route path='*' element={<Home />} />
+				<Route path='/app-photos' element={<Home />} />
+				<Route path='*' element={<Home />} />
 
-        <Route path='/collection' element={<Collection />} />
-      </Routes>
-    </>
-  )
+				<Route path='/collection' element={<Collection />} />
+			</Routes>
+		</>
+	)
 }
 
 export default Router
