@@ -17,6 +17,7 @@ jobs:
         env:
           CI: false
       - uses: jakejarvis/s3-sync-action@master
+      - name: Upload to AWS 👍
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
