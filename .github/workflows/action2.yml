@@ -22,10 +22,7 @@ jobs:
         with:
           REACT_APP_ACCESS_KEY: ${{ vars.REACT_APP_ACCESS_KEY }}
           REACT_APP_ACCESS_KEY_1: ${{ vars.REACT_APP_ACCESS_KEY_1 }}
-          directory: /
           file_name: .env
-          fail_on_empty: false
-          sort_keys: false
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
