@@ -16,10 +16,10 @@ jobs:
         run: npm run build
         env:
           CI: false
-            REACT_APP_ACCESS_KEY: ${{ variables.REACT_APP_ACCESS_KEY }}
-            REACT_APP_ACCESS_KEY_1: ${{ variables.REACT_APP_ACCESS_KEY_1 }}
-            REACT_APP_ACCESS_KEY: ${{ variables.REACT_APP_ACCESS_KEY }}
-            REACT_APP_SECRET_KEY_1: ${{ variables.REACT_APP_ACCESS_KEY_1 }}
+          REACT_APP_ACCESS_KEY: ${{ variables.REACT_APP_ACCESS_KEY }}
+          REACT_APP_ACCESS_KEY_1: ${{ variables.REACT_APP_ACCESS_KEY_1 }}
+          REACT_APP_ACCESS_KEY: ${{ variables.REACT_APP_ACCESS_KEY }}
+          REACT_APP_SECRET_KEY_1: ${{ variables.REACT_APP_ACCESS_KEY_1 }}
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
