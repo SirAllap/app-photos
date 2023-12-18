@@ -1,4 +1,4 @@
-name: Show files
+name: npm install + run
 
 on: [push]
 
@@ -6,5 +6,11 @@ jobs:
   show-file-container:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4.1.1    
-      - run: ls -l
+      - uses: actions/checkout@master
+      - name: Install Dependencies 🔰
+        run: npm i
+      - name: Run Build 🛠
+        run: npm run build
+        env: 
+          REACT_APP_ACCESS_KEY: ${{ secrets.REACT_APP_ACCESS_KEY }}
+          REACT_APP_ACCESS_KEY_1: ${{ secrets.REACT_APP_ACCESS_KEY_1 }}
