@@ -15,13 +15,13 @@ jobs:
       - name: Run Build 🛠
         run: npm run build
         env: 
-          REACT_APP_ACCESS_KEY: ${{ vars.REACT_APP_ACCESS_KEY }}
-          REACT_APP_ACCESS_KEY_1: ${{ vars.REACT_APP_ACCESS_KEY_1 }}
+          REACT_APP_ACCESS_KEY: ${{ secrets.REACT_APP_ACCESS_KEY }}
+          REACT_APP_ACCESS_KEY_1: ${{ secrets.REACT_APP_ACCESS_KEY_1 }}
       - name: Create .env file
         uses: SpicyPizza/create-envfile@v2.0.2
         with:
-          REACT_APP_ACCESS_KEY: ${{ vars.REACT_APP_ACCESS_KEY }}
-          REACT_APP_ACCESS_KEY_1: ${{ vars.REACT_APP_ACCESS_KEY_1 }}
+          REACT_APP_ACCESS_KEY: ${{ secrets.REACT_APP_ACCESS_KEY }}
+          REACT_APP_ACCESS_KEY_1: ${{ secrets.REACT_APP_ACCESS_KEY_1 }}
           file_name: .env
       - uses: jakejarvis/s3-sync-action@master
         with:
